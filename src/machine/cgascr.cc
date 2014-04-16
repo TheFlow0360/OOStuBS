@@ -13,7 +13,7 @@
 
 int CGA_Screen::computeAddress(unsigned short x, unsigned short y)
 {
-  return 0xB8000 + 160 * x + 2 * y;
+  return MEMORY_START + 2 * CHARS_PER_ROW * x + 2 * y;
 }
 
 CGA_Screen::CGA_Screen(){
@@ -24,14 +24,14 @@ CGA_Screen::CGA_Screen(){
   // standard background-color: black
   this->attr.set.bgColor = BLACK;
   // no blink
-  this->attr.set.blink = 0;
+  this->attr.set.blink = false;
 
-  char* text = "System Starting\nInitializing OOStuBS...\0";
+  char* text = "System Starting\nInitializing OOStuBS...";
   this->print(text, StrUtils::length(text));
 }
 
 CGA_Screen::~CGA_Screen(){
-  char* text = "System will now halt...\0";
+  char* text = "System will now halt...";
   this->print(text, StrUtils::length(text));
 }
 
@@ -40,7 +40,7 @@ void CGA_Screen::setpos (unsigned short x, unsigned short y) {
   IO_Port data(DATA_REG);
 
   CGA_Cursor cursor;
-  cursor.position = (x + 80*y);
+  cursor.position = (x + CHARS_PER_ROW * y);
   index.outb(CURSOR_HIGH);
   data.outb(cursor.bytes.high);
   index.outb(CURSOR_LOW);
@@ -58,8 +58,8 @@ void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const{
   cursor.bytes.low = data.inb();
 
   unsigned short offset = cursor.position;
-  x = offset % 80;
-  y = offset / 80;
+  x = offset % CHARS_PER_ROW;
+  y = offset / CHARS_PER_ROW;
 }
 
 void CGA_Screen::show (unsigned short x, unsigned short y, char character, unsigned char attribute) {
@@ -74,17 +74,21 @@ void CGA_Screen::show(unsigned short x, unsigned short y, CGA_Screen::CGA_Char c
 }
 
 void CGA_Screen::print (const char* string, unsigned int n) {
-  unsigned int x = 0;
-  unsigned int y = 0;
+  unsigned short x, y;
+  this->getpos(x, y);
   for (unsigned int i = 0; i < n; i++) {
     if (string[i] == '\n') {
       x++;
       y = 0;
       continue;
     }
+    if (x >= ROW_COUNT) {
+      this->scrollup();
+      x--;
+    }
     this->show(x, y, string[i], attr.byte);
     y++;
-    if (y > 80) {
+    if (y > CHARS_PER_ROW) {
       y = 0;
       x++;
     }
@@ -92,17 +96,36 @@ void CGA_Screen::print (const char* string, unsigned int n) {
   this->setpos(x, y);
 }
 
-/** \todo implement **/
+void CGA_Screen::print(const char* string)
+{
+  this->print(string, StrUtils::length(string));
+}
+
 void CGA_Screen::scrollup () {
-  /* ToDo: Insert Your Code Here */
+  // copy all lines one line back
+  int dest = MEMORY_START;
+  int count = 2 *                 // 2 bytes per character
+      CHARS_PER_ROW;              // 80 bytes per line
+  int source = dest + count;      // copy from one line further
+  count *= ROW_COUNT - 1;         // 24 lines of 25 I want to copy back
+
+  for (int i = 0; i < count; i++)
+  {
+    *((char*)dest+i) = *((char*)source+i);
+  }
+
+  // fill last line with spaces
+  for (int i = 0; i < CHARS_PER_ROW; i++)
+    *((char*)(i * 2 + count + dest)) = ' ';
 }
 
 void CGA_Screen::clear () {
-  for (unsigned int i = 0; i < 25; i++) {
-    for (unsigned int j = 0; j < 80; j++) {
+  for (unsigned int i = 0; i < ROW_COUNT; i++) {
+    for (unsigned int j = 0; j < CHARS_PER_ROW; j++) {
       this->show(i, j, ' ', 0);
     }
   }
+  this->setpos(0,0);
 }
 
 void CGA_Screen::setAttributes(int fgColor, int bgColor, bool blink){

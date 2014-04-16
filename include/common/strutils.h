@@ -23,7 +23,7 @@ class StrUtils {
    * @param string the string
    * @return the length of the string
    */
-  static int length(char* string);
+  static int length(const char* string);
 };
 
 

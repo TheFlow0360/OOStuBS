@@ -22,7 +22,13 @@
 class CGA_Screen {
   private:
 
-  // Cursor Stuff
+  // some constants
+
+#define MEMORY_START 0xB8000
+#define CHARS_PER_ROW 80
+#define ROW_COUNT 25
+
+  // Cursor stuff
 
 #define INDEX_REG 0x3d4
 #define DATA_REG  0x3d5
@@ -40,7 +46,7 @@ class CGA_Screen {
   };
 
 
-  // Attribute Stuff
+  // Attribute stuff
 
   /**
    * @brief The CGA_AttrByte struct
@@ -73,7 +79,7 @@ class CGA_Screen {
   };
 
   /**
-   * @brief Aktuelles Attributes-Byte
+   * @brief active attribute
    */
   CGA_Attr attr;
 
@@ -154,6 +160,24 @@ class CGA_Screen {
      *    number auf characters in string
      */
     void print(const char* string, unsigned int n);
+
+    /**
+     * \~german
+     * \brief gibt eine Zeichenkette an der aktuellen Position aus
+     *
+     * Als Attribute werden die hinterlegten, aktuellen, Standardwerte verwendet.
+     *
+     * @param string
+     *    Zeichenkette, die ausgegeben werden soll
+     *
+     *
+     * \~english
+     * \brief print a string to the current position
+     *
+     * @param string
+     *    string of characters to be displayed
+     */
+    void print(const char* string);
     
     /** 
      * \~german

@@ -9,7 +9,7 @@
 #include "common/strutils.h"
 
 
-int StrUtils::length(char* string)
+int StrUtils::length(const char* string)
 {
   int length = 0;
   while (string[length] != '\0')

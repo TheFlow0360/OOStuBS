@@ -172,7 +172,12 @@ void Task1::testKeyboard(){
 }
 
 void Task1::action(){
-  kout.setpos(32, 1);
+  kout.print("\n\n\nDas ist ein Test.");
+  kout.setpos(5, 17);
+  kout.print("Writing somewhere else...");
+  kout.setpos(25, 3);
+  kout.print("Ich schreibe munter vor mich hin,\nlalala,\nlalala");
+
   kout << "OOStuBs - Task 1" << endl;
 
   testKout();
