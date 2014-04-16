@@ -22,6 +22,26 @@
 class CGA_Screen {
   private:
 
+  // Cursor Stuff
+
+#define INDEX_REG 0x3d4
+#define DATA_REG  0x3d5
+#define CURSOR_LOW 15
+#define CURSOR_HIGH 14
+
+  struct CGA_CursorPos {
+    unsigned char low;
+    unsigned char high;
+  };
+
+  union CGA_Cursor {
+    unsigned short position;
+    CGA_CursorPos bytes;
+  };
+
+
+  // Attribute Stuff
+
   /**
    * @brief The CGA_AttrByte struct
    *

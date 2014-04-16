@@ -7,6 +7,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  
 #include "machine/cgascr.h"
+#include "machine/io_port.h"
 #include "common/o_stream.h"
 #include "common/strutils.h"
 
@@ -34,14 +35,31 @@ CGA_Screen::~CGA_Screen(){
   this->print(text, StrUtils::length(text));
 }
 
-/** \todo implement **/
 void CGA_Screen::setpos (unsigned short x, unsigned short y) {
+  IO_Port index(INDEX_REG);
+  IO_Port data(DATA_REG);
 
+  CGA_Cursor cursor;
+  cursor.position = (x + 80*y);
+  index.outb(CURSOR_HIGH);
+  data.outb(cursor.bytes.high);
+  index.outb(CURSOR_LOW);
+  data.outb(cursor.bytes.low);
 }
 
-/** \todo implement **/
 void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const{
+  IO_Port index(INDEX_REG);
+  IO_Port data(DATA_REG);
 
+  CGA_Cursor cursor;
+  index.outb(CURSOR_HIGH);
+  cursor.bytes.high = data.inb();
+  index.outb(CURSOR_LOW);
+  cursor.bytes.low = data.inb();
+
+  unsigned short offset = cursor.position;
+  x = offset % 80;
+  y = offset / 80;
 }
 
 void CGA_Screen::show (unsigned short x, unsigned short y, char character, unsigned char attribute) {
@@ -71,6 +89,7 @@ void CGA_Screen::print (const char* string, unsigned int n) {
       x++;
     }
   }
+  this->setpos(x, y);
 }
 
 /** \todo implement **/
