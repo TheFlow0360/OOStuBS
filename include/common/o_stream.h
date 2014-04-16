@@ -173,7 +173,7 @@ class O_Stream : public Stringbuffer{
      */
     virtual ~O_Stream();
     
-    /** \brief overloded output operator
+    /** \brief overloaded output operator
      *
      * Operator << overloading the default operator. Is used to convert
      * the given datatype into a string that can be printed on an output device.
@@ -216,7 +216,7 @@ class O_Stream : public Stringbuffer{
     /** \copydoc operator<<(char value) **/
     O_Stream& operator << (void* value);
     
-    /** \brief overloded output manipulator
+    /** \brief overloaded output manipulator
      * 
      * Operator << overloading the default operator. It is used to change the way the characters are printed on the screen.
      * 
@@ -225,7 +225,7 @@ class O_Stream : public Stringbuffer{
      */
     O_Stream& operator << (FGColor fgColor);
     
-    /** \brief overloded output manipulator
+    /** \brief overloaded output manipulator
      *
      * Operator << overloading the default operator. It is used to change the way the characters are printed on the screen.
      *
@@ -234,7 +234,7 @@ class O_Stream : public Stringbuffer{
      */
     O_Stream& operator << (BGColor bgColor);
     
-    /** \brief overloded output manipulator
+    /** \brief overloaded output manipulator
      *
      * Operator << overloading the default operator. It is used to change the way the characters are printed on the screen.
      *
@@ -268,9 +268,9 @@ class O_Stream : public Stringbuffer{
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*
- * The following methods receive and return a referenz to the current O_Stream
+ * The following methods receive and return a reference to the current O_Stream
  * object. Class O_Stream defines an operator that can be used to call this so
- * called manipulators. It is eveen possible to embedd the output of the method
+ * called manipulators. It is even possible to embedd the output of the method
  * into the input of the stream.
  * Main goal of the manipulators is to influence the display of the following 
  * output (eg. by choosing a basis for the display of digits).
