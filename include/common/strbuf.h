@@ -41,6 +41,12 @@
  * 'protected'.
  */
 class Stringbuffer {
+private:
+    #define BUFFER_SIZE 16
+
+    char buffer[BUFFER_SIZE];
+    char* pos;
+
   protected:
     /** \brief Default constructor setting the buffer empty. */
     Stringbuffer();
