@@ -35,17 +35,6 @@ class CGA_Screen {
 #define CURSOR_LOW 15
 #define CURSOR_HIGH 14
 
-  struct CGA_CursorPos {
-    unsigned char low;
-    unsigned char high;
-  };
-
-  union CGA_Cursor {
-    unsigned short position;
-    CGA_CursorPos bytes;
-  };
-
-
   // Attribute stuff
 
   /**
@@ -89,7 +78,10 @@ class CGA_Screen {
    * @param y Position
    * @return Address
    */
-  int computeAddress(unsigned short x, unsigned short y);
+  inline int computeAddress(unsigned short x, unsigned short y)
+  {
+    return MEMORY_START + 2 * CHARS_PER_ROW * x + 2 * y;
+  }
 
  public:
     

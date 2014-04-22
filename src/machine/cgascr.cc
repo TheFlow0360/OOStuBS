@@ -11,11 +11,6 @@
 #include "common/o_stream.h"
 #include "common/strutils.h"
 
-int CGA_Screen::computeAddress(unsigned short x, unsigned short y)
-{
-  return MEMORY_START + 2 * CHARS_PER_ROW * x + 2 * y;
-}
-
 CGA_Screen::CGA_Screen(){
   this->clear();
 
@@ -39,27 +34,27 @@ void CGA_Screen::setpos (unsigned short x, unsigned short y) {
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
-  CGA_Cursor cursor;
-  cursor.position = (x + CHARS_PER_ROW * y);
+  short pos = x + CHARS_PER_ROW * y;
+
   index.outb(CURSOR_HIGH);
-  data.outb(cursor.bytes.high);
+  data.outb(pos & 0xff);
   index.outb(CURSOR_LOW);
-  data.outb(cursor.bytes.low);
+  data.outb((pos >> 8) & 0xff);
 }
 
 void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const{
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
-  CGA_Cursor cursor;
-  index.outb(CURSOR_HIGH);
-  cursor.bytes.high = data.inb();
-  index.outb(CURSOR_LOW);
-  cursor.bytes.low = data.inb();
+  short pos;
 
-  unsigned short offset = cursor.position;
-  x = offset % CHARS_PER_ROW;
-  y = offset / CHARS_PER_ROW;
+  index.outb(CURSOR_LOW);
+  pos = data.inb() << 8;
+  index.outb(CURSOR_HIGH);
+  pos += data.inb();
+
+  x = pos % CHARS_PER_ROW;
+  y = pos / CHARS_PER_ROW;
 }
 
 void CGA_Screen::show (unsigned short x, unsigned short y, char character, unsigned char attribute) {
