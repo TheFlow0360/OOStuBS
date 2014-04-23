@@ -34,27 +34,26 @@ void CGA_Screen::setpos (unsigned short x, unsigned short y) {
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
-  short pos = x + CHARS_PER_ROW * y;
+  unsigned short pos = y + (CHARS_PER_ROW * x);
 
   index.outb(CURSOR_HIGH);
-  data.outb(pos & 0xff);
-  index.outb(CURSOR_LOW);
   data.outb((pos >> 8) & 0xff);
+  index.outb(CURSOR_LOW);
+  data.outb(pos & 0xff);
 }
 
-void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const{
+void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const {
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
-  short pos;
-
   index.outb(CURSOR_LOW);
-  pos = data.inb() << 8;
+  unsigned char low = data.inb();
   index.outb(CURSOR_HIGH);
-  pos += data.inb();
+  unsigned char high = data.inb();
 
-  x = pos % CHARS_PER_ROW;
-  y = pos / CHARS_PER_ROW;
+  unsigned short pos = (high << 8) + low;
+  y = pos % CHARS_PER_ROW;
+  x = pos / CHARS_PER_ROW;
 }
 
 void CGA_Screen::show (unsigned short x, unsigned short y, char character, unsigned char attribute) {
@@ -117,7 +116,7 @@ void CGA_Screen::scrollup () {
 void CGA_Screen::clear () {
   for (unsigned int i = 0; i < ROW_COUNT; i++) {
     for (unsigned int j = 0; j < CHARS_PER_ROW; j++) {
-      this->show(i, j, ' ', 0);
+      this->show(i, j, ' ', 15);
     }
   }
   this->setpos(0,0);

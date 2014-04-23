@@ -177,13 +177,19 @@ void Task1::action(){
   kout.print("Writing somewhere else...");
   kout.setpos(25, 3);
   kout.print("Ich schreibe munter vor mich hin,\nlalala,\nlalala");
+  kout.setpos(5,10);
+  kout << 'a';
+  kout << endl;
+  kout.print("Test");
+  kout.print(" direkt dahinter");
+  //kout << -12382;
 
-  kout << "OOStuBs - Task 1" << endl;
+  //kout << "OOStuBs - Task 1" << endl;
 
-  testKout();
+ // testKout();
   
-  parseAndPrint();
+ // parseAndPrint();
   
-  testKeyboard(); 
+ // testKeyboard();
 
 }
