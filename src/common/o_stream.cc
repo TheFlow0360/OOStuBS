@@ -7,20 +7,14 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "common/o_stream.h"
+#include "common/strutils.h"
 
-/** \brief \todo implement **/
-O_Stream::O_Stream() : Stringbuffer(), fgColor(WHITE), bgColor(BLACK), blink(false), base(dec){
-  /* ToDo: Insert Your Code Here */
-}
+O_Stream::O_Stream() : Stringbuffer(), fgColor(WHITE), bgColor(BLACK), blink(false), base(dec){}
 
-/** \brief \todo implement **/
-O_Stream::~O_Stream(){
-  /* ToDo: Insert Your Code Here */
-}
+O_Stream::~O_Stream(){}
 
-/** \brief \todo implement **/
 O_Stream& O_Stream::operator << (char value) {
-  /* ToDo: Insert Your Code Here */
+  this->put(value);
   return *this;
 }
 
@@ -32,9 +26,12 @@ O_Stream& O_Stream::operator << (char* value) {
   return *this << (const char*)value;
 }
 
-/** \brief \todo implement **/
 O_Stream& O_Stream::operator << (const char* value) {
-  /* ToDo: Insert Your Code Here */
+  char tmp = value[0];
+  while (tmp != '\0') {
+    this->put(tmp);
+    tmp++;
+  }
   return *this;
 }
 
@@ -57,21 +54,21 @@ O_Stream& O_Stream::operator << (unsigned int value) {
 
 }
 
-/** \brief \todo implement **/
 O_Stream& O_Stream::operator << (long value) {
-  /* ToDo: Insert Your Code Here */
-  return *this;;
+  return *this << StrUtils::longToString(value);
 }
 
-/** \brief \todo implement **/
 O_Stream& O_Stream::operator << (unsigned long value) {
-  /* ToDo: Insert Your Code Here */
-  return *this;
+  return *this << StrUtils::ulongToString(value);
 }
 
-/** \brief \todo implement **/
 O_Stream& O_Stream::operator << (void* value) {
-  /* ToDo: Insert Your Code Here */
+  // return as Hex output
+  Base tmp = this->base;
+  this->base = O_Stream::hex;
+  operator<<((unsigned long)value);
+  // switch back to original base
+  this->base = tmp;
   return *this;
 }
 
@@ -98,9 +95,9 @@ O_Stream& O_Stream::operator << (Blink blink){
   return *this;
 }
 
-/** \brief \todo implement **/
 O_Stream& endl (O_Stream& os) {
-  /* ToDo: Insert Your Code Here */
+  os.put('\n');
+  os.flush();
   return os;
 }
 

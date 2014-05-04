@@ -40,14 +40,13 @@
  * Stringbuffer every variable and method of Stringbuffer is declared 
  * 'protected'.
  */
-class Stringbuffer {
-private:
-    #define BUFFER_SIZE 16
+#define BUFFER_SIZE 80
 
-    char buffer[BUFFER_SIZE];
+class Stringbuffer {
+  protected:
+    char* buffer;
     char* pos;
 
-  protected:
     /** \brief Default constructor setting the buffer empty. */
     Stringbuffer();
     
@@ -73,8 +72,6 @@ private:
      * method has to be implemented in a subclass of Stringbuffer.
      */
     virtual void flush() = 0;
-    
-  public:
     
 };
 

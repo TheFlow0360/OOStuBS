@@ -182,7 +182,7 @@ void Task1::action(){
   kout << endl;
   kout.print("Test");
   kout.print(" direkt dahinter");
-  //kout << -12382;
+  kout << -12382;
 
   //kout << "OOStuBs - Task 1" << endl;
 

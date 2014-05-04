@@ -12,6 +12,7 @@
 #include "machine/cpu.h"
 #include "machine/pic.h"
 #include "machine/keyctrl.h"
+#include "machine/mem.h"
 #include "device/cgastr.h"
 #include "user/task1.h"
 
@@ -51,7 +52,7 @@ extern "C" void kernel(uint32_t magic, const Multiboot_Info* info);
  * 
  **/
 void kernel(uint32_t magic, const Multiboot_Info* info){
-  
+
   TaskClass task(magic, info);
   
   task.action();

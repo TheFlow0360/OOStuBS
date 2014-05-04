@@ -100,7 +100,7 @@ class Blink{
  * for display of digits and to print the buffer after an endl.
  */
 class O_Stream : public Stringbuffer{
-  protected: 
+  protected:
     /// \~german  intern gespeicherte Vordergrundfarbe
     /// \~english internal saved foreground color
     int fgColor;

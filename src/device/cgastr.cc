@@ -8,11 +8,12 @@
 
 #include "device/cgastr.h"
 
-/** \todo implement **/
 void CGA_Stream::flush () {
-  /* ToDo: Insert Your Code Here */
+  pos = buffer;
+  char* text = pos;
+  this->print(text);
 }
-/** \todo implement **/
+
 void CGA_Stream::setAttributes(int fgColor, int bgColor, bool blink){
-  /* ToDo: Insert Your Code Here */
+  this->setAttributes(fgColor, bgColor, blink);
 }

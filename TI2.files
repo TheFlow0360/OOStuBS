@@ -10,6 +10,7 @@ include/machine/key.h
 include/machine/keyctrl.h
 include/machine/multiboot.h
 include/machine/pic.h
+include/machine/mem.h
 include/object/cpu.h
 include/object/kout.h
 include/user/appl.h
@@ -19,10 +20,12 @@ src/boot/cppInit.cc
 src/common/o_stream.cc
 src/common/strbuf.cc
 src/common/strutils.cc
+src/common/string.cc
 src/device/cgastr.cc
 src/machine/cgascr.cc
 src/machine/exceptions.cc
 src/machine/keyctrl.cc
 src/machine/pic.cc
+src/machine/mem.cc
 src/user/task1.cc
 src/main.cc
