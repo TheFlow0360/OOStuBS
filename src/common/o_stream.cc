@@ -9,7 +9,7 @@
 #include "common/o_stream.h"
 #include "common/strutils.h"
 
-O_Stream::O_Stream() : Stringbuffer(), fgColor(WHITE), bgColor(BLACK), blink(false), base(dec){}
+O_Stream::O_Stream() : Stringbuffer(), fgColor(LIGHTGREEN), bgColor(BLACK), blink(false), base(dec){}
 
 O_Stream::~O_Stream(){}
 
@@ -27,10 +27,12 @@ O_Stream& O_Stream::operator << (char* value) {
 }
 
 O_Stream& O_Stream::operator << (const char* value) {
-  char tmp = value[0];
+  int i = 0;
+  char tmp = value[i];
   while (tmp != '\0') {
     this->put(tmp);
-    tmp++;
+    i++;
+    tmp = value[i];
   }
   return *this;
 }
@@ -55,18 +57,18 @@ O_Stream& O_Stream::operator << (unsigned int value) {
 }
 
 O_Stream& O_Stream::operator << (long value) {
-  return *this << StrUtils::longToString(value);
+  return (*this << StrUtils::longToString(value, this->base));
 }
 
 O_Stream& O_Stream::operator << (unsigned long value) {
-  return *this << StrUtils::ulongToString(value);
+  return (*this << StrUtils::ulongToString(value, this->base));
 }
 
 O_Stream& O_Stream::operator << (void* value) {
   // return as Hex output
   Base tmp = this->base;
   this->base = O_Stream::hex;
-  operator<<((unsigned long)value);
+  *this << ((unsigned long)value);
   // switch back to original base
   this->base = tmp;
   return *this;

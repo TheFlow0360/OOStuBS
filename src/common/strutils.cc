@@ -45,14 +45,16 @@ int StrUtils::length(const char* string)
 char* StrUtils::reverse(const char* string)
 {
   int l = StrUtils::length(string);
-  char* res = (char*) Memory::alloc(l);
-  for (int i = 0; i < l; i++)
-    res[l-i] = string[i];
+  char* res = (char*) Memory::alloc(l + 1);
+  for (int i = 1; i <= l; i++)
+    res[l-i] = string[i-1];
+  res[l] = '\0';
   return res;
 }
 
 char* StrUtils::longToString(long value)
 {
+  // default base is decimal
   return StrUtils::longToString(value, 10);
 }
 

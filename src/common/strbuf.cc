@@ -10,7 +10,8 @@
 #include "machine/mem.h"
 
 Stringbuffer::Stringbuffer(){
-  buffer = (char *)Memory::alloc(BUFFER_SIZE);
+  //increasing buffer size by 2 for /0 and (if needed) /n
+  buffer = (char *)Memory::alloc(BUFFER_SIZE + 2);
   pos = buffer;
 }
 
@@ -21,6 +22,7 @@ Stringbuffer::~Stringbuffer(){
 void Stringbuffer::put (char c) {
   if (pos >= buffer + BUFFER_SIZE) {
     // flush when buffer overflow imminent
+    *pos = '\0'; // set marker for end of string
     this->flush();
     pos = buffer;   // reset position-counter
   }

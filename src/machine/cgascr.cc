@@ -116,7 +116,7 @@ void CGA_Screen::scrollup () {
 void CGA_Screen::clear () {
   for (unsigned int i = 0; i < ROW_COUNT; i++) {
     for (unsigned int j = 0; j < CHARS_PER_ROW; j++) {
-      this->show(i, j, ' ', 15);
+      this->show(i, j, ' ', this->attr.byte);
     }
   }
   this->setpos(0,0);

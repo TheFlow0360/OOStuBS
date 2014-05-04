@@ -14,6 +14,6 @@ void CGA_Stream::flush () {
   this->print(text);
 }
 
-void CGA_Stream::setAttributes(int fgColor, int bgColor, bool blink){
-  this->setAttributes(fgColor, bgColor, blink);
+void CGA_Stream::setAttributes(int fgColor, int bgColor, bool blink) {
+  CGA_Screen::setAttributes(fgColor, bgColor, blink);
 }
