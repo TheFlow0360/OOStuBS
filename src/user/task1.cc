@@ -172,6 +172,7 @@ void Task1::testKeyboard(){
 }
 
 void Task1::action(){
+  kout.clear();
   /*
   kout.print("\n\n\nDas ist ein Test.");
   kout.setpos(5, 17);
