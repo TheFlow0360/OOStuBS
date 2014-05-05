@@ -2,59 +2,32 @@
  *                                   Technische Informatik II                                    * 
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  *                                                                                               * 
- *                                            P I C                                              * 
+ *                               I N T E R R U P T _ S T O R A G E                               * 
  *                                                                                               * 
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
-#include "machine/pic.h"
-#include "machine/io_port.h"
-#include "object/cpu.h"
+#include "common/interruptstorage.h"
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-/** \todo extend - add global interrupt eneabling after pic configuration **/
-PIC::PIC() {
-  IO_Port ctrl_1(0x20), ctrl_2(0xa0), mask_1(0x21), mask_2(0xa1);
-    
-  ctrl_1.outb(0x11);
-  ctrl_2.outb(0x11);
-  
-  mask_1.outb(32);
-  mask_2.outb(40);
-  
-  mask_1.outb(4);
-  mask_2.outb(2);
-  
-  mask_1.outb(3);
-  mask_2.outb(3);
-  
-  mask_1.outb(0xFB);
-  mask_2.outb(0xFF);
+/** \todo implement **/
+InterruptStorage::InterruptStorage(){
+  // ToDo: your code goes here
+}
+
+
+/** \todo implement **/
+void InterruptStorage::assign(int iNum, InterruptHandler& handler){
   // ToDo: your code goes here
 }
 
 /** \todo implement **/
-PIC::~PIC(){
-
-}
-
-/** \todo implement **/
-void PIC::allow(Interrupts interrupt){
-  // ToDo: your code goes here
-}
-
-/** \todo implement **/
-void PIC::forbid(Interrupts interrupt){
-  // ToDo: your code goes here
-}
-
-/** \todo implement **/
-void PIC::ack(Interrupts interrupt){
+void InterruptStorage::handle(int iNum){
   // ToDo: your code goes here
 }

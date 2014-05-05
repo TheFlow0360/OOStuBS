@@ -10,31 +10,29 @@
 
 #include "machine/multiboot.h"
 #include "machine/cpu.h"
-#include "machine/pic.h"
-#include "machine/keyctrl.h"
-#include "machine/mem.h"
+#include "device/interruptmanager.h"
+#include "device/keyboard.h"
 #include "device/cgastr.h"
-#include "user/task1.h"
 
 /* MACROS */
 
 /// \~german  festlegen, welche Aufgabenanwendung verwendet werden soll
 /// \~english define which task is desired
-#define USE_TASK           10
+#define USE_TASK           20
 
 //load the necessary header and define the class name of the task
 #if USE_TASK == 10
   #include "user/task1.h"
-  typedef Task1 TaskClass;
-  
+#elif USE_TASK == 20
+  #include "user/task2.h"
 #endif
 
 
 /* GLOBAL OBJECTS */
 
-PIC pic;
+InterruptManager iManager;
 CGA_Stream kout;
-Keyboard_Controller keyboard;
+Keyboard keyboard;
 CPU cpu;
 
 
@@ -52,9 +50,12 @@ extern "C" void kernel(uint32_t magic, const Multiboot_Info* info);
  * 
  **/
 void kernel(uint32_t magic, const Multiboot_Info* info){
+  
+#if USE_TASK == 10
+  Task1 task(magic, info);
+#elif USE_TASK == 20
+  Task2 task;
+#endif
 
-  TaskClass task(magic, info);
-  
-  task.action();
-  
+    task.action();
 }

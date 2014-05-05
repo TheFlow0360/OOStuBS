@@ -1,6 +1,4 @@
-/**
- * \~german
- * \page task1 Aufgabe 1 - Ausgabefunktionen und Tastatursteuerung
+/**\page task1 Aufgabe 1 - Ausgabefunktionen und Tastatursteuerung
  * \tableofcontents
  * 
  * \section task1_sec1 Ziele
@@ -97,15 +95,10 @@
  * \section task1_sec4 Hilfestellung
  *   \li \subpage task1_cgaInfo
  *   \li \subpage task1_keyboardInfo
- * 
- * \~english
- * \page task1 Task 1 - Input and Output
- * 
- * There is no english describtion. Use the german one.
  */
 
 /**
- * \~german
+ * 
  * \page task1_cgaInfo Informationen zu CGA
  * \tableofcontents
  * 
@@ -260,15 +253,10 @@
  *   <tr><td>3d4</td><td>Indexregister</td><td>nur schreiben</td></tr>
  *   <tr><td>3d5</td><td>Datenregister</td><td>lesen und schreiben</td></tr>
  * </table>
- * 
- * \~english
- * \page task1_cgaInfo information about CGA
- * 
- * There is no english describtion. Use the german one.
  */
 
 /**
- * \~german
+ * 
  * \page task1_keyboardInfo Informationen zum Tastaturkontroller
  * \tableofcontents
  * 
@@ -407,10 +395,4 @@
  *  - The AT keyboard controller
  *  - <a href="http://wiki.osdev.org/%228042%22_PS/2_Controller">"8042" PS/2 Controller</a> auf osdev.org
  *  - <a href="http://www.lowlevel.eu/wiki/Keyboard_Controller">Keyboard Controller</a> auf lowlevel.eu
- * 
- * \~english
- * \page task1_keyboardInfo information about the keyboard controller
- * 
- * There is no english describtion. Use the german one.
- */
- 
+ **/ 

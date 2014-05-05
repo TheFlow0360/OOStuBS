@@ -2,7 +2,7 @@
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                        useful/cpu                                             *
+ *                                        object/cpu                                             *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #include "machine/cpu.h"

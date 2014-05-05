@@ -10,6 +10,7 @@
  * 
  * \section main_sec2 Aufgaben
  * \ref task1 \n
+ * \ref task2 \n
  * 
  * \section main_sec3 Entwicklungsumgebung
  * Auf der folgenden Seite ist die Entwicklungsumgebung beschrieben. \n
@@ -20,7 +21,6 @@
  * 
  * Christoph Steup  steup@ivs.cs.ovgu.de \n
  * Sebastian Zug    zug@ivs.cs.ovgu.de \n
- * Michael Schiefer schiefer@ivs.cs.ovgu.de \n
  * 
  * \~english
  * \section main_sec1 information
@@ -31,6 +31,7 @@
  * 
  * \section main_sec2 tasks
  * \ref task1 \n
+ * \ref task2 \n
  * 
  * \section main_sec3 Development Environment
  * The following side describe the environment. \n
@@ -41,5 +42,4 @@
  * 
  * Christoph Steup  steup@ivs.cs.ovgu.de \n
  * Sebastian Zug    zug@ivs.cs.ovgu.de \n
- * Michael Schiefer schiefer@ivs.cs.ovgu.de \n
  **/

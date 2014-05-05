@@ -1,9 +1,9 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
- *                                 Technische Informatik II                                      *
+ *                                   Technische Informatik II                                    *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                       object/kout                                             *
+ *                                        object/interruptmanager                                *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#include "device/cgastr.h"
-extern CGA_Stream kout;
+#include "device/interruptmanager.h"
+extern InterruptManager iManager;

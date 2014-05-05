@@ -24,4 +24,10 @@
  **/
 #define BUFFERSIZE 80
 
+#define MAX_INTERRUPT_NUMBER 255
+#define MIN_INTERRUPT_NUMBER 32
+#define DEBUG_X 0
+#define DEBUG_Y 0
+#define KEYBOARD_X 10
+#define KEYBOARD_Y 10
 #endif

@@ -8,6 +8,7 @@
 
 /* INCLUDES */
 
+#include "object/imanager.h"
 #include "object/kout.h"
 #include "object/cpu.h"
 
@@ -65,7 +66,7 @@ void printException(unsigned short slot, void** esp){
   const Exception& e=exceptions[slot];
   //Fehler melden
   kout.clear();
-  kout.setpos(0,0);
+  kout.setpos(DEBUG_Y, DEBUG_Y);
   kout.flush();
   kout << "Exception "    << slot << ": " << e.name << " occured" << endl;
   if(!e.isReserved){
@@ -109,8 +110,5 @@ void exception(unsigned short slot, void** esp) {
   if(slot < 32 && slot != 2) {
     printException(slot, esp);
   }
-  kout.clear();
-  kout.setpos(0,0);
-  kout.flush();
-  kout << "Unhandled Interrupt: " << slot << " occured" << endl;
+  iManager.handle(slot);
 }

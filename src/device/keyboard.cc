@@ -2,59 +2,25 @@
  *                                   Technische Informatik II                                    * 
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  *                                                                                               * 
- *                                            P I C                                              * 
+ *                                       K E Y B O A R D                                         * 
  *                                                                                               * 
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
-#include "machine/pic.h"
-#include "machine/io_port.h"
-#include "object/cpu.h"
-
+#include "device/keyboard.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-/** \todo extend - add global interrupt eneabling after pic configuration **/
-PIC::PIC() {
-  IO_Port ctrl_1(0x20), ctrl_2(0xa0), mask_1(0x21), mask_2(0xa1);
-    
-  ctrl_1.outb(0x11);
-  ctrl_2.outb(0x11);
-  
-  mask_1.outb(32);
-  mask_2.outb(40);
-  
-  mask_1.outb(4);
-  mask_2.outb(2);
-  
-  mask_1.outb(3);
-  mask_2.outb(3);
-  
-  mask_1.outb(0xFB);
-  mask_2.outb(0xFF);
-  // ToDo: your code goes here
+/** \todo implement **/
+void Keyboard::plugin(){
+    // ToDo: your code goes here
 }
 
 /** \todo implement **/
-PIC::~PIC(){
-
-}
-
-/** \todo implement **/
-void PIC::allow(Interrupts interrupt){
-  // ToDo: your code goes here
-}
-
-/** \todo implement **/
-void PIC::forbid(Interrupts interrupt){
-  // ToDo: your code goes here
-}
-
-/** \todo implement **/
-void PIC::ack(Interrupts interrupt){
-  // ToDo: your code goes here
+void Keyboard::trigger(){
+    // ToDo: your code goes here
 }

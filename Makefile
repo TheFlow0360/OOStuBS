@@ -5,7 +5,7 @@ TARGET=oostubs
 # the platforms osxcross and windows are also possible but are not supported
 PLATFORM=linux
 
-CFLAGS=-Wall -O0 -g
+CFLAGS=-Wall -O0 -g -Wpedantic
 CXXFLAGS=-std=c++11
 LDFLAGS=-O0
 ASMFLAGS=-g
