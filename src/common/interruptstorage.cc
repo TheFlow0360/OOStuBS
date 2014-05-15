@@ -10,24 +10,28 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "common/interruptstorage.h"
+#include "machine/mem.h"
+#include "config.h"
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-/** \todo implement **/
 InterruptStorage::InterruptStorage(){
-  // ToDo: your code goes here
+  // allocate Memory for the mapping-array
+  handlers = (InterruptHandler**) Memory::alloc(MAX_INTERRUPT_NUMBER - MIN_INTERRUPT_NUMBER);
+  // initialize all interruptHandlers with Panic
+  for (int i = 0; i < MAX_INTERRUPT_NUMBER - MIN_INTERRUPT_NUMBER; i++) {
+    handlers[i] = &panic;
+  }
 }
 
 
-/** \todo implement **/
 void InterruptStorage::assign(int iNum, InterruptHandler& handler){
-  // ToDo: your code goes here
+  handlers[iNum - MIN_INTERRUPT_NUMBER] = &handler;
 }
 
-/** \todo implement **/
 void InterruptStorage::handle(int iNum){
-  // ToDo: your code goes here
+  handlers[iNum - MIN_INTERRUPT_NUMBER]->trigger();
 }

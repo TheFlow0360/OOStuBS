@@ -9,6 +9,7 @@
 #include "device/cgastr.h"
 
 void CGA_Stream::flush () {
+  *pos = '\0';
   this->print(buffer, pos - buffer);
   pos = buffer;
 }

@@ -11,7 +11,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include <device/interruptmanager.h>
 
-/** \todo implement **/
 void InterruptManager::assign(int iNum, InterruptHandler& handler){
-    // ToDo: your code goes here
+  InterruptStorage::assign(iNum, handler);
+  allow((Interrupts)iNum);
 }

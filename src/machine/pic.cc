@@ -12,16 +12,25 @@
 #include "machine/pic.h"
 #include "machine/io_port.h"
 #include "object/cpu.h"
+#include "config.h"
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-/** \todo extend - add global interrupt eneabling after pic configuration **/
+void PIC::updateMask()
+{
+  IO_Port  mask_1(MasterMask), mask_2(SlaveMask);
+  mask_1.outb((unsigned char) interruptMask);
+  mask_2.outb((unsigned char) (interruptMask >> 8));
+}
+
 PIC::PIC() {
-  IO_Port ctrl_1(0x20), ctrl_2(0xa0), mask_1(0x21), mask_2(0xa1);
-    
+  IO_Port ctrl_1(MasterCmd), ctrl_2(SlaveCmd), mask_1(MasterMask), mask_2(SlaveMask);
+
+  interruptMask = ~0;
+
   ctrl_1.outb(0x11);
   ctrl_2.outb(0x11);
   
@@ -36,25 +45,30 @@ PIC::PIC() {
   
   mask_1.outb(0xFB);
   mask_2.outb(0xFF);
-  // ToDo: your code goes here
+
+  cpu.enable_int();
 }
 
-/** \todo implement **/
 PIC::~PIC(){
-
+  cpu.disable_int();
 }
 
-/** \todo implement **/
 void PIC::allow(Interrupts interrupt){
-  // ToDo: your code goes here
+  interruptMask &= ~(1u << ((unsigned int)interrupt - MIN_INTERRUPT_NUMBER));     // remove corresponding bit
+  updateMask();
 }
 
-/** \todo implement **/
 void PIC::forbid(Interrupts interrupt){
-  // ToDo: your code goes here
+  interruptMask |= 1u << ((unsigned int)interrupt - MIN_INTERRUPT_NUMBER);        // set corresponding bit
+  updateMask();
 }
 
-/** \todo implement **/
 void PIC::ack(Interrupts interrupt){
-  // ToDo: your code goes here
+  IO_Port ctrl_1(MasterCmd), ctrl_2(SlaveCmd);
+
+  // notify that interrupt was handled
+  ctrl_1.outb(NOTIFYINTERRUPTHANDLED);
+  // notfiy slave too, if needed
+  if (interrupt > 7)
+    ctrl_2.outb(NOTIFYINTERRUPTHANDLED);
 }

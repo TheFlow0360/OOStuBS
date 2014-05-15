@@ -13,6 +13,7 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "common/interrupthandler.h"
+#include "common/panic.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    CLASSES                      #
@@ -33,6 +34,13 @@
  * and software interrupt and execute it.
  **/
 class InterruptStorage {  
+  private:
+    // mapping for all interrupts
+    InterruptHandler** handlers;
+
+    // default handler
+    Panic panic;
+
   public:
     /** 
      * \~german

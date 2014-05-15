@@ -10,18 +10,20 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include <common/panic.h>
-
+#include "object/cpu.h"
+#include "device/cgastr.h"
+extern CGA_Stream kout;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-/** \todo implement **/
 void Panic::trigger(){
-  // ToDo: your code goes here  
+  kout<<"Unhandled Interrupt!"<<endl;
+  cpu.halt();
 }
 
-/** \todo implement **/
 void Panic::currentInterrupt(int iNum){
-  // ToDo: your code goes here
+  kout<<"Unhandled Interrupt: "<<iNum<<"!"<<endl;
+  cpu.halt();
 }

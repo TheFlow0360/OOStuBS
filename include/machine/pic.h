@@ -24,7 +24,7 @@
  * Der %PIC (programmierbarer Interruptkontroller) ermöglicht es dem System bestimmte Interrupts 
  * bzw. unterbrechungen zu erlauben oder zu verbieten. Wurden die Interrupts global aktiviert,
  * so legt der PIC fest, welche Interrupts weitergreicht werden um vom System behandelt zu werden. 
- * Es ist wichtig,d ass Interrupts nur behandelt werden, falls der entsprechende Interrupt erlaubt 
+ * Es ist wichtig, dass Interrupts nur behandelt werden, falls der entsprechende Interrupt erlaubt
  * wurde und die Behandlung im allgemeinen aktiviert ist - siehe dazu die Klasse \ref CPU.
  * 
  * Der %PIC basiert auf Intels 8259 Chip und besteht aus einem Master-Slave %PIC-System.
@@ -42,7 +42,25 @@
  *
  */
 
-class PIC{
+class PIC {
+  private:
+
+#define NOTIFYINTERRUPTHANDLED 0x20
+
+    enum PICPorts {
+      MasterCmd  = 0x20,
+      SlaveCmd   = 0xa0,
+      MasterMask = 0x21,
+      SlaveMask  = 0xa1
+    };
+
+    /// mask of ignored interrupts
+    unsigned int interruptMask;
+
+    /**
+     * @brief Write back the mask
+     */
+    void updateMask();
   public:
     /** 
      * \~german
@@ -81,8 +99,8 @@ class PIC{
      * \~german
      * \brief Standardkonstruktor
      * 
-     * Er initialisiert den PIC und maskiert alle einkommenden Interrupt, damit wird keiner  an
-     * die %CPU durchgereicht. Danach aktiviert er die globale Interruptverarbeitung der CPU und ermöglicht das auftreten und ausgeben von Exceptions.
+     * Er initialisiert den PIC und maskiert alle einkommenden Interrupt, damit wird keiner an
+     * die %CPU durchgereicht. Danach aktiviert er die globale Interruptverarbeitung der CPU und ermöglicht das Auftreten und Ausgeben von Exceptions.
      * 
      * \~english
      * \brief Default Constructor

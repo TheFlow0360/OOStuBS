@@ -48,8 +48,9 @@ class Panic  : public InterruptHandler {
      **/
     virtual void trigger();
     
-    /**\brief Sets the currently handled interrupt
-      *\brief param iNum the currently handled interrupt's number
+    /**
+     * \brief Sets the currently handled interrupt
+     * \brief param iNum the currently handled interrupt's number
      **/
     void currentInterrupt(int iNum);
 };

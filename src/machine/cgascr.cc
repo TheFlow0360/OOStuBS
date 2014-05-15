@@ -110,7 +110,7 @@ void CGA_Screen::scrollup () {
 
   // fill last line with spaces
   for (int i = 0; i < CHARS_PER_ROW; i++)
-    *((char*)(i * 2 + count + dest)) = ' ';
+    this->show(25, i, ' ', this->attr.byte);
 }
 
 void CGA_Screen::clear () {
