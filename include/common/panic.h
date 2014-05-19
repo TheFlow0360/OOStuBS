@@ -56,6 +56,12 @@ class Panic  : public InterruptHandler {
      * \brief param iNum the currently handled interrupt's number
      **/
     void currentInterrupt(int iNum);
+
+    /**
+     * @brief gets the currently handled interrupt
+     * @return
+     */
+    int getCurrentInterrupt();
 };
 
 #endif

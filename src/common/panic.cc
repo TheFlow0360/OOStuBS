@@ -26,3 +26,8 @@ void Panic::trigger(){
 void Panic::currentInterrupt(int iNum){
   interruptNr = iNum;
 }
+
+int Panic::getCurrentInterrupt()
+{
+  return interruptNr;
+}
