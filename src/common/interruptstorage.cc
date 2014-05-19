@@ -18,7 +18,7 @@
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-InterruptStorage::InterruptStorage(){
+InterruptStorage::InterruptStorage() {
   // allocate Memory for the mapping-array
   handlers = (InterruptHandler**) Memory::alloc(MAX_INTERRUPT_NUMBER - MIN_INTERRUPT_NUMBER);
   // initialize all interruptHandlers with Panic
@@ -28,10 +28,13 @@ InterruptStorage::InterruptStorage(){
 }
 
 
-void InterruptStorage::assign(int iNum, InterruptHandler& handler){
+void InterruptStorage::assign(int iNum, InterruptHandler& handler) {
   handlers[iNum - MIN_INTERRUPT_NUMBER] = &handler;
 }
 
-void InterruptStorage::handle(int iNum){
-  handlers[iNum - MIN_INTERRUPT_NUMBER]->trigger();
+void InterruptStorage::handle(int iNum) {
+  int index = iNum - MIN_INTERRUPT_NUMBER;
+  if (handlers[index] == &panic)
+    ((Panic*)(handlers[index]))->currentInterrupt(iNum);
+  handlers[index]->trigger();
 }

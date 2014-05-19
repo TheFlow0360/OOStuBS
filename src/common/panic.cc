@@ -19,11 +19,10 @@ extern CGA_Stream kout;
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 void Panic::trigger(){
-  kout<<"Unhandled Interrupt!"<<endl;
+  kout<<"Unhandled Interrupt: "<<interruptNr<<"!"<<endl;
   cpu.halt();
 }
 
 void Panic::currentInterrupt(int iNum){
-  kout<<"Unhandled Interrupt: "<<iNum<<"!"<<endl;
-  cpu.halt();
+  interruptNr = iNum;
 }

@@ -29,7 +29,7 @@ void PIC::updateMask()
 PIC::PIC() {
   IO_Port ctrl_1(MasterCmd), ctrl_2(SlaveCmd), mask_1(MasterMask), mask_2(SlaveMask);
 
-  interruptMask = ~0;
+  interruptMask = ~0u;
 
   ctrl_1.outb(0x11);
   ctrl_2.outb(0x11);

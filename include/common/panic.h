@@ -32,6 +32,9 @@
  * used as default for unknown/registered interrupts.
  */
 class Panic  : public InterruptHandler {
+  private:
+    int interruptNr = -1;
+
   public:
     /**  
      * \~german

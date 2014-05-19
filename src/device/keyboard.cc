@@ -12,6 +12,7 @@
 #include "device/keyboard.h"
 #include "device/interruptmanager.h"
 #include "device/cgastr.h"
+#include "object/cpu.h"
 
 extern InterruptManager iManager;
 extern CGA_Stream kout;
@@ -31,6 +32,10 @@ void Keyboard::trigger()
     Key k = key_hit();
     if( !k.valid() )
         return;
+
+    // Ctrl + Alt + Del
+    if (k.ctrl() && k.alt() && ((int)k.scancode() == 83))
+      cpu.halt();
 
     //kout.show( KEYBOARD_X, KEYBOARD_Y, k.ascii(), 10);
     kout<<k.ascii()<<endl;
