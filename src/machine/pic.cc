@@ -29,8 +29,6 @@ void PIC::updateMask()
 PIC::PIC() {
   IO_Port ctrl_1(MasterCmd), ctrl_2(SlaveCmd), mask_1(MasterMask), mask_2(SlaveMask);
 
-  interruptMask = ~0u;
-
   ctrl_1.outb(0x11);
   ctrl_2.outb(0x11);
   
@@ -45,6 +43,10 @@ PIC::PIC() {
   
   mask_1.outb(0xFB);
   mask_2.outb(0xFF);
+
+  unsigned char low = mask_1.inb();
+  unsigned char high = mask_2.inb();
+  interruptMask = (high << 8) + low;
 
   cpu.enable_int();
 }

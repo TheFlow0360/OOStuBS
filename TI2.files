@@ -20,7 +20,6 @@ src/boot/cppInit.cc
 src/common/o_stream.cc
 src/common/strbuf.cc
 src/common/strutils.cc
-src/common/string.cc
 src/device/cgastr.cc
 src/machine/cgascr.cc
 src/machine/exceptions.cc

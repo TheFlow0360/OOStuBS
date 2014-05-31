@@ -33,6 +33,8 @@ void InterruptStorage::assign(int iNum, InterruptHandler& handler) {
 }
 
 void InterruptStorage::handle(int iNum) {
+  if (iNum < MIN_INTERRUPT_NUMBER)
+    return;
   int index = iNum - MIN_INTERRUPT_NUMBER;
   panic.currentInterrupt(iNum);
   handlers[index]->trigger();

@@ -173,21 +173,21 @@ void Task1::testKeyboard(){
 
 void Task1::action(){
   kout.clear();
-  /*
+/*
   kout.print("\n\n\nDas ist ein Test.");
   kout.setpos(5, 17);
   kout.print("Writing somewhere else...");
   kout.setpos(25, 3);
   kout.print("Ich schreibe munter vor mich hin,\nlalala,\nlalala");
   kout.setpos(5,10);
-  kout.print("Test");
-  kout.print(" direkt dahinter");
-  kout.setpos(0,0);
-  kout << 1;
-  kout << -12382;
+ // kout.print("Test");
+ // kout.print(" direkt dahinter");
+ // kout.setpos(0,0);
+*/
+  //kout << -12382;
 
-  kout << "OOStuBs - Task 1" << endl;
-  */
+  //kout << "OOStuBs - Task 1" << endl;
+
 
   testKout();
   

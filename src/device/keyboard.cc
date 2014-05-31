@@ -35,7 +35,7 @@ void Keyboard::trigger()
 
     // Ctrl + Alt + Del
     if (k.ctrl() && k.alt() && ((int)k.scancode() == 83))
-      Keyboard::reboot(); // why the fuq is this in Keyboard ?!?!
+      Keyboard::reboot();
 
     //kout.show( KEYBOARD_X, KEYBOARD_Y, k.ascii(), 10);    <-- this would solve artifact problems
     kout<<k.ascii()<<endl;

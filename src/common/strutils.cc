@@ -29,8 +29,11 @@ char*StrUtils::processLong(long value, short base)
     res[i] = '0';
     i++;
   }
-  if (base == 2)
+  if (base == 2) {
     res[i] = 'b';
+    i++;
+  }
+  res[i] = '\0';
   return res;
 }
 
@@ -60,13 +63,20 @@ char* StrUtils::longToString(long value)
 
 char* StrUtils::longToString(long value, short base)
 {
-  char* res = (char*) Memory::alloc(16);
+  char* res = 0;//(char*) Memory::alloc(16);
   if (value >= 0) {
     res = processLong(value, base);
   } else {
     res = processLong(-1 * value, base);
     res[StrUtils::length(res)] = '-';
   }
+
+
+  for( int i = 0; i < StrUtils::length(res);++i )
+    *(char *)(0xb8000 + 2*i) = res[i];
+
+  while(true);
+
   return StrUtils::reverse(res);
 }
 
