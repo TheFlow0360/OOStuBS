@@ -21,12 +21,12 @@ CGA_Screen::CGA_Screen(){
   // no blink
   this->attr.set.blink = false;
 
-  const char* text = "System Starting\nInitializing OOStuBS...";
+  const char* text = "System Starting\nInitializing OOStuBS...\n\n";
   this->print(text, StrUtils::length(text));
 }
 
 CGA_Screen::~CGA_Screen(){
-  const char* text = "System will now halt...";
+  const char* text = "\nSystem will now halt...";
   this->print(text, StrUtils::length(text));
 }
 
@@ -106,12 +106,12 @@ void CGA_Screen::scrollup () {
   for (int i = 0; i < count; i++)
   {
     *((char*)dest+i) = *((char*)source+i);
-   // *((char*)dest+i+1) = *((char*)source+i+1);
+    *((char*)dest+i+1) = *((char*)source+i+1);
   }
 
   // fill last line with spaces
   for (int i = 0; i < CHARS_PER_ROW; i++)
-    this->show(25, i, ' ', this->attr.byte);
+    this->show(ROW_COUNT - 1, i, ' ', this->attr.byte);
 }
 
 void CGA_Screen::clear () {

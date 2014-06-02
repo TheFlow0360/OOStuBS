@@ -24,9 +24,11 @@
 	.endif					      /* is expanded. 								*/
 
 	int_wrapper_\@:
-	push %eax
-	mov	$\@, %eax
-	jmp	handleException
+  push %esp             /* put current stack pointer as 2. parameter */
+  pushl	$\@             /* put interrupt number as 1. parameter */
+	call	handleException /* call the unified exception handling function */
+  add $8, %esp          /* cleanup stack frame */
+  iret                  /* end interrupt */
 	
 	.ifeq \@
 		INT_WRAPPER_END:
@@ -130,26 +132,26 @@ intWrappers:				    /* Create the interrupt wrappers */
 		wrapperGen
 	.endr
 
-handleException:				    /* Unified interrupt handling routine */
-	cld						        /* expected by gcc */
-	
+handleException:				/* Unified interrupt handling routine */
+  push %ebp             /* create stack frame */
+  mov %esp, %ebp
+
 	push %ecx				      /* save volatile registers */
 	push %edx
+  push %eax
 	
-	and  $0xFF, %eax 		  /* the interrupt wrapper only provides 8bit */
-	mov  %esp, %ecx
-  add  $12, %ecx
-  push %ecx
-	push %eax						  /* push the argument of the C/C++ interrupt handler */
-	call exception			    /* call the interrupt handler */
+  pushl 12(%ebp)        /* forward 2. parameter (stack pointer on exception entry) */
+  pushl  8(%ebp)        /* forward 1. parameter (interrupt number) */
+	cld						        /* expected by gcc */
+	call exception        /* call the interrupt handler */
 	add  $8, %esp		      /* cleanup */
 	
-endException:
-	pop %edx				      /* retrieve saved registers */
-	pop %ecx
-	pop %eax							/* was pushed in wrapper */
-	
-	iret									/* leave interrupt */
+  pop %eax				      /* retrieve saved registers */
+	pop %edx
+	pop %ecx				
+
+  leave                 /* cleanup stack frame */
+  ret                   /* jump back to wrapper */
 
 .bss						        /* the fallowing is uninitialized reserved memory */
 

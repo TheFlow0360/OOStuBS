@@ -22,7 +22,6 @@ Stringbuffer::~Stringbuffer(){
 void Stringbuffer::put (char c) {
   if (pos >= buffer + BUFFER_SIZE) {
     // flush when buffer overflow imminent
-    *pos = '\0'; // set marker for end of string
     this->flush();
     pos = buffer;   // reset position-counter
   }

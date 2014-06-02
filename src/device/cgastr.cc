@@ -10,6 +10,7 @@
 
 void CGA_Stream::flush () {
   *pos = '\0';
+  pos++;
   this->print(buffer, pos - buffer);
   pos = buffer;
 }

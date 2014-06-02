@@ -18,13 +18,16 @@
 
 /// \~german  festlegen, welche Aufgabenanwendung verwendet werden soll
 /// \~english define which task is desired
-#define USE_TASK           20
+#define USE_TASK           30
 
 //load the necessary header and define the class name of the task
 #if USE_TASK == 10
   #include "user/task1.h"
 #elif USE_TASK == 20
   #include "user/task2.h"
+#elif USE_TASK == 30
+  #include "user/task3A.h"
+  #include "user/task3B.h"
 #endif
 
 
@@ -53,9 +56,24 @@ void kernel(uint32_t magic, const Multiboot_Info* info){
   
 #if USE_TASK == 10
   Task1 task(magic, info);
+  task.action();
 #elif USE_TASK == 20
   Task2 task;
-#endif
+  task.action();
+#elif USE_TASK == 30
+  kout << "Please choose subtask A/B" << endl;
+  Key k;
+  do{
+      k=keyboard.key_hit();
+  }while(!k.valid() || (k.ascii()!='A' && k.ascii()!='B'));
 
+  if(k.ascii()=='A'){
+    Task3A task;
     task.action();
+  }
+  else{
+    Task3B task;
+    task.action();
+  }
+  #endif
 }

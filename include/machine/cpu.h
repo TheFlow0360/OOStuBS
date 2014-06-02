@@ -41,7 +41,7 @@ class CPU {
         "add $4, %%esp \n\t"
         :"=r"(temp)
       );
-      return temp;
+      return temp&(1<<9);
     }
     
     /** \~german
