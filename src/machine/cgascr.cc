@@ -82,10 +82,14 @@ void CGA_Screen::print (const char* string, unsigned int n) {
     }
     this->show(x, y, string[i], attr.byte);
     y++;
-    if (y > CHARS_PER_ROW) {
+    if (y >= CHARS_PER_ROW) {
       y = 0;
       x++;
     }
+  }
+  if (x >= ROW_COUNT) {
+    this->scrollup();
+    x--;
   }
   this->setpos(x, y);
 }
