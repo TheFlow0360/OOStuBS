@@ -10,7 +10,7 @@
 #include "machine/mem.h"
 
 
-char*StrUtils::processLong(long value, short base)
+char* StrUtils::processLong(unsigned long value, short base)
 {
   char* res = (char*) Memory::alloc(16);
   int i = 0;
@@ -29,10 +29,7 @@ char*StrUtils::processLong(long value, short base)
     res[i] = '0';
     i++;
   }
-  if (base == 2) {
-    res[i] = 'b';
-    i++;
-  }
+
   res[i] = '\0';
   return res;
 }
@@ -63,19 +60,13 @@ char* StrUtils::longToString(long value)
 
 char* StrUtils::longToString(long value, short base)
 {
-  char* res = 0;//(char*) Memory::alloc(16);
+  char* res = (char*) Memory::alloc(16);
   if (value >= 0) {
-    res = processLong(value, base);
+    res = processLong((unsigned long)value, base);
   } else {
-    res = processLong(-1 * value, base);
+    res = processLong((unsigned long)(-1 * value), base);
     res[StrUtils::length(res)] = '-';
   }
-
-
-  for( int i = 0; i < StrUtils::length(res);++i )
-    *(char *)(0xb8000 + 2*i) = res[i];
-
-  while(true);
 
   return StrUtils::reverse(res);
 }

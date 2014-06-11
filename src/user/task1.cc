@@ -188,7 +188,6 @@ void Task1::action(){
 
   //kout << "OOStuBs - Task 1" << endl;
 
-
   testKout();
   
   parseAndPrint();

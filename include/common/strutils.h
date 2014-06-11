@@ -19,7 +19,7 @@ static const char digits[] = "0123456789abcdef";
 class StrUtils {
   private:
 
-  static char* processLong(long value, short base);
+  static char* processLong(unsigned long value, short base);
 
   public:
 
