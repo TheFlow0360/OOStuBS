@@ -53,12 +53,8 @@ PIC::PIC() {
 
 PIC::~PIC(){
   //cpu.disable_int();
-  mask_1.outb(0xFF);
-  mask_2.outb(0xFF);
-
-  unsigned char low = mask_1.inb();
-  unsigned char high = mask_2.inb();
-  interruptMask = (high << 8) + low;
+  interruptMask = ~0;
+  updateMask();
 }
 
 void PIC::allow(Interrupts interrupt){
