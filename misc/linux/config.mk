@@ -14,6 +14,6 @@ CXXFLAGS+=${CFLAGS} -fno-rtti -nostdinc++
 LDFLAGS=-e entry -T misc/sections
 
 OBJDUMPFLAGS=-Cxd
-EMUFLAGS+=-no-kvm -net none -vga std -kernel
-DEBUGFLAGS+=-s -S
+EMUFLAGS+=-no-kvm -net none -vga std -serial stdio
+EMUDEBUG+=-no-kvm -net none -vga std -serial file:"log" -S -s -daemonize
 GDBFLAGS+=-x misc/gdb.script

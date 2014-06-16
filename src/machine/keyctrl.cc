@@ -8,7 +8,8 @@
 
 /* INCLUDES */
 #include "machine/keyctrl.h"
-#include "locking/intlock.h"
+#include "object/lock.h"
+#include "locking/scopedLock.h"
 
 /* GLOBALE VARIABLS */
 
@@ -197,7 +198,7 @@ Keyboard_Controller::Keyboard_Controller () : ctrl_port (0x64), data_port (0x60)
 
 void Keyboard_Controller::reboot () {
   int status;
-  
+
   // The BIOS has to be told that reset is real and no memory test.
   *(unsigned short*) 0x472 = 0x1234;
   
@@ -230,7 +231,7 @@ void Keyboard_Controller::set_repeat_rate (unsigned char speed, unsigned char de
   
   unsigned char status, reply;
   
-  IntLock lock;
+  ScopedLock scopedLock(lock);
   
   data_port.outb (cmd_set_speed);    // send command to keyboard
   do { 
@@ -250,7 +251,7 @@ void Keyboard_Controller::set_led (Leds led, bool on) {
   
   unsigned char status, reply;
   
-  IntLock lock;
+  ScopedLock scopedLock(lock);
   
   data_port.outb (cmd_set_led);             // send command to keyboard
   do { 

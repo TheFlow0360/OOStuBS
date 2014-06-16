@@ -38,7 +38,7 @@
       labeljust=r;
       keyctrlC   [label="Keyboard_Controller", URL="\ref Keyboard_Controller"];
       picC       [label="PIC", URL="\ref PIC", color=blue];
-      exceptionF [label="exception(...)", shape=oval, URL="\ref exception", color=blue];
+      exceptionF [label="exception(...)", shape=oval, U<F5>RL="\ref exception", color=blue];
       cpuC  [label="CPU", URL="\ref CPU"];
     }
 

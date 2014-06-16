@@ -111,8 +111,6 @@ initFPU:										/* setup FPU for 486 and newer */
 
 setupObj:					      /* Call the constructors of global objects */
 	call constructObjects
-	/*ljmpl $0x04, $callKernel*/ /* only test code: generate GP */
-	/*int $2*/				    /* only test code: generate pseudo Interrupt 2, just normal interrupt, no exception generation */
 
 callKernel:					    /* Call the C/C++ main function of the operating system */
 	call kernel

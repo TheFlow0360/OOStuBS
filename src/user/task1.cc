@@ -13,9 +13,9 @@
 extern CGA_Stream kout;
 extern Keyboard_Controller keyboard;
 
-Task1::Task1(uint32_t magic, const ::Multiboot_Info* mbi)
-            : Application(), magic(magic), mbi(reinterpret_cast<const Multiboot_Info*>(mbi)) {
-  
+void Task1::setup(uint32_t magic, const ::Multiboot_Info* mbi){
+ this->magic=magic;
+ this->mbi=reinterpret_cast<const Multiboot_Info*>(mbi);
 }
 
 bool Task1::checkFlag(Flags flag){

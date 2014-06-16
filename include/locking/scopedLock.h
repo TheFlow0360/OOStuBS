@@ -2,40 +2,40 @@
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                 I N T E R R U P T L O C K                                     *
+ *                                 S C O P E D - L O C K                                         *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __InterruptLock_include__
-#define __InterruptLock_include__
+#ifndef __scoped_lock_include__
+#define __scoped_lock_include__
 
-#include <object/cpu.h>
+#include "locking/lock.h"
 
 /** \~german
  *
  * \~english
- * \brief Concurrancy lock of global interrupts
+ * \brief Scoped lock
  *
- * the constructor of this class locks global interrupts to disable interrupt caused concurrancy.
+ * This lock interface locks the supplied lock on creation and unlocks it, when the interface is destroyed.
  */
-class IntLock {
+class ScopedLock {
   private:
-    const bool oldState;
+    Lock& lock;
   public: 
     /** \~german
      *  \~english
-     *  \brief Constructor locking all interrupts and saving old interrupt state
+     *  \brief Constructor locking the supplied lock
      **/
-    IntLock() : oldState(cpu.disable_int()){
+    ScopedLock(Lock& lock) : lock(lock){
+      lock.lock();
     }
     
     /** \~german
      *  \~english
-     *  \brief Desctructor restoring interrupt state
+     *  \brief Desctructor unlocking the registered lock
      **/
-    ~IntLock(){
-      if(oldState)
-        cpu.enable_int();
+    ~ScopedLock(){
+      lock.unlock();
     }
 };
 

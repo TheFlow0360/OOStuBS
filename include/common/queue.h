@@ -2,14 +2,35 @@
  *                                   Technische Informatik II                                    * 
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  *                                                                                               * 
- *                                 K E Y B O A R D - O B J E C T                                 * 
+ *                                           Q U E U E                                           * 
  *                                                                                               * 
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __keyboard_object_header__
-#define __keyboard_object_header__
+#ifndef __queue_include__
+#define __queue_include__
 
-#include "device/keyboard.h"
-extern Keyboard keyboard;
+class Queue{
+  public:
+
+    class Element{
+      private:
+        Element* next;
+      public:
+        Element();
+      friend class Queue;
+    };
+
+  private:
+    Element* mHead;
+    Element* mTail;
+
+  public:
+    Queue();
+    void push_back(Element& e);
+    Element* pop_front();
+    Element* peek_front() const;
+    bool remove(Element& e);
+    bool empty() const;
+};
 
 #endif

@@ -32,6 +32,6 @@
  * 
  * \~
  */
-void analyseProcedureStack(void** esp, const char* func) __attribute__((no_inline));
+void analyseProcedureStack(void** esp, const char* func);
 
 #endif

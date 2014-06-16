@@ -2,14 +2,26 @@
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                     C P U - O B J E C T                                       *
+ *                                         W A T C H                                             *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __cpu_object_header__
-#define __cpu_object_header__
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                   INCLUDES                      #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "machine/cpu.h"
-extern CPU cpu;
+#include "device/watch.h"
+#include "object/imanager.h"
+#include "object/scheduler.h"
 
-#endif
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                   METHODS                       #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
+
+void Watch::windup(unsigned int ms){
+  // todo
+}
+
+void Watch::trigger(){
+  // todo
+}

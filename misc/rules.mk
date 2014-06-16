@@ -16,7 +16,7 @@ SED:=@${SED}
 OBJDUMP:=@${OBJDUMP}
 
 BOOT_OBJECT      := ${BUILD}/boot.o
-SOURCES          := $(wildcard ${SRC}/*/*.cc ${SRC}/*.cc ${SRC}/*/*.S)
+SOURCES          := $(wildcard ${SRC}/*/*.c ${SRC}/*/*.cc ${SRC}/*.cc ${SRC}/*/*.S)
 HEADERS          := $(filter %.h, $(wildcard ${INCLUDE}/*/*.h))
 DOXS             := $(wildcard ${DOC}/*.dox)
 SYSTEM_OBJECTS   := $(filter-out ${BOOT_OBJECT}, $(addprefix ${BUILD}/,$(filter-out ${OBJECT_IGNORE}, $(addsuffix .o,$(basename $(notdir ${SOURCES}))))))
@@ -30,11 +30,12 @@ LIBS             := $(addprefix -l,${LIBS})
 ASMFLAGS         := $(foreach VAR, ${ASMFLAGS}, -Wa,${VAR})
 BUILD_GARBAGE    := $(wildcard *~ *.sw?) ${BIN} ${BUILD} $(wildcard *.dump)
 DOC_GARBAGE      := ${DOC}/html ${DOC}/log
-GARBAGE          := $(BUILD_GARBAGE) $(DOC_GARBAGE)
+GARBAGE          := $(BUILD_GARBAGE) $(DOC_GARBAGE) log
 
 .PHONY: all clean run debug doc dump cleanDoc cleanBuild
 
-vpath %.cc ${SRC} ${SRC}/machine ${SRC}/user ${SRC}/common ${SRC}/device ${SRC}/boot
+vpath %.cc ${SRC} ${SRC}/machine ${SRC}/user ${SRC}/common ${SRC}/device ${SRC}/boot ${SRC}/thread ${SRC}/locking
+vpath %.c ${SRC}/boot
 vpath %.S  ${SRC}/boot
 
 all: ${TARGET}
@@ -89,7 +90,7 @@ run: ${EMUTARGET}
 
 debug: ${TARGET}
 	@echo "(DEBUG)"
-	${EMU} ${EMUFLAGS} $< ${EMUDEBUG} -S -s -daemonize && ${RAWGDB} ${TARGET} ${GDBFLAGS}
+	${EMU} ${EMUDEBUG} -kernel $< && ${RAWGDB} ${TARGET} ${GDBFLAGS}
 
 doc: ${DOC}/html/index.html
 	@$(shell if [ -d ./doc/pics ] ; then cp -f ./doc/pics/* ./doc/html ; fi )

@@ -2,14 +2,17 @@
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                     C P U - O B J E C T                                       *
+ *                                          L O G                                                *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __cpu_object_header__
-#define __cpu_object_header__
+#include "device/log.h"
 
-#include "machine/cpu.h"
-extern CPU cpu;
+void Log::flush () {
+  print (buffer, pos - buffer);
+  pos = buffer;
+}
 
-#endif
+void Log::setAttributes(int fgColor, int bgColor, bool blink){
+
+}

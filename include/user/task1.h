@@ -125,19 +125,19 @@ class Task1 : public Application{
     /** \brief test the functionality of the Keyboard_Controller object **/
     void testKeyboard();
     
-  public:
-    /** \brief Constructor
-     *
-     * \param magic bootloader provided magic value
-     * \param mbi pointer to multiboot info structure
-     **/
-    Task1(uint32_t magic, const ::Multiboot_Info* mbi);
-    
+  public:  
     /** \brief parse and print multiboot information
      *
      * test also the implementation of CGA_Stream and Keyboard_Controller
      **/
     virtual void action();
-};
+
+    /** \brief sets pointer to multiboot information and magic constant
+     *
+     * \param mbi the pointer to the multiboot information structure
+     * \param magic the magic constant passed by a multiboot compliant loader
+     **/
+    void setup(uint32_t magic, const ::Multiboot_Info* mbi);
+};  
 
 #endif

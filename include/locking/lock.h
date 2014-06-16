@@ -2,14 +2,24 @@
  *                                   Technische Informatik II                                    * 
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
  *                                                                                               * 
- *                                 K E Y B O A R D - O B J E C T                                 * 
+ *                                          L O C K                                              * 
  *                                                                                               * 
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __keyboard_object_header__
-#define __keyboard_object_header__
+#ifndef __lock_header__
+#define __lock_header__
 
-#include "device/keyboard.h"
-extern Keyboard keyboard;
+/* * * * * * * * * * * * * * * * * * * * * * * * *\
+#                    CLASSES                      #
+\* * * * * * * * * * * * * * * * * * * * * * * * */
+
+class Lock{
+  protected:
+    bool state;
+  public:
+    Lock() : state(false){}
+    virtual void lock() = 0;
+    virtual void unlock() = 0;
+};
 
 #endif

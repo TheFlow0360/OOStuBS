@@ -2,14 +2,15 @@
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
- *                                     C P U - O B J E C T                                       *
+ *                              S C H E D U L E R - O B J E C T                                  *
  *                                                                                               *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __cpu_object_header__
-#define __cpu_object_header__
+#ifndef __scheduler_object_header
+#define __scheduler_object_header
 
-#include "machine/cpu.h"
-extern CPU cpu;
+#include "thread/scheduler.h"
+
+extern Scheduler scheduler;
 
 #endif
