@@ -58,7 +58,7 @@ Task4::~Task4(){
 
 void Task4::action(){
   kout.clear();
-	kout.setpos(31,1);
+  kout.setpos(1,31);
 	kout << "OOStuBs - Task 4" << endl << endl;
   log << "Inserting RotatingCursor in Scheduler" << endl;
   scheduler.insert(rotCursor);
