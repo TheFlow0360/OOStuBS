@@ -19,9 +19,12 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 void Watch::windup(unsigned int ms){
-  // todo
+  interval(1000 * ms);
+  iManager.assign(InterruptManager::timer, *this);
 }
 
 void Watch::trigger(){
-  // todo
+  iManager.ack(InterruptManager::timer);
+  // acknowledge before preemption, because the function does not return
+  scheduler.preempt();
 }

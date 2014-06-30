@@ -30,7 +30,7 @@ CGA_Screen::~CGA_Screen(){
   this->print(text, StrUtils::length(text));
 }
 
-void CGA_Screen::setpos (unsigned short x, unsigned short y) {
+void CGA_Screen::setpos (unsigned short y, unsigned short x) {
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
@@ -42,7 +42,7 @@ void CGA_Screen::setpos (unsigned short x, unsigned short y) {
   data.outb(pos & 0xff);
 }
 
-void CGA_Screen::getpos (unsigned short& x, unsigned short& y) const {
+void CGA_Screen::getpos (unsigned short& y, unsigned short& x) const {
   IO_Port index(INDEX_REG);
   IO_Port data(DATA_REG);
 
@@ -69,7 +69,7 @@ void CGA_Screen::show(unsigned short x, unsigned short y, CGA_Screen::CGA_Char c
 
 void CGA_Screen::print (const char* string, unsigned int n) {
   unsigned short x, y;
-  this->getpos(x, y);
+  this->getpos(y, x);
   for (unsigned int i = 0; i < n; i++) {
     if (string[i] == '\n') {
       x++;
@@ -91,7 +91,7 @@ void CGA_Screen::print (const char* string, unsigned int n) {
     this->scrollup();
     x--;
   }
-  this->setpos(x, y);
+  this->setpos(y, x);
 }
 
 void CGA_Screen::print(const char* string)

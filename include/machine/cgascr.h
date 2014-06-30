@@ -104,14 +104,14 @@ class CGA_Screen {
      * @param x column number of new position 
      * @param y row number of new position
      */
-    void setpos(unsigned short x, unsigned short y);
+    void setpos(unsigned short y, unsigned short x);
     
     /** \brief get the cursor position
      *
      * @param x reference for column number of current position
      * @param y reference for row number of curent position
      */
-    void getpos(unsigned short& x, unsigned short& y) const;
+    void getpos(unsigned short& y, unsigned short& x) const;
     
     /** \brief print a character to a specific position
      *

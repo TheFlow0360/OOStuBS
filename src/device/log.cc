@@ -9,7 +9,8 @@
 #include "device/log.h"
 
 void Log::flush () {
-  print (buffer, pos - buffer);
+  *pos = '\0';
+  this->print(buffer, pos - buffer);
   pos = buffer;
 }
 
