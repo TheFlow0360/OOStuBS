@@ -34,7 +34,9 @@ void Task5::action(){
         kout << " ";
         kout.flush();
         kout.setpos(x-1,y);
+        x--;
         cmdLine.erase();
+        continue;
       }
       kout.setpos(x,y);
       kout << k.ascii();
