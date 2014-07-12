@@ -1,5 +1,4 @@
-/*
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  *                                 Technische Informatik II                                      *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                               *
@@ -12,6 +11,8 @@
 
 /* INCLUDES */
 
+#include <machine/io_port.h>
+
 /* CLASSES */
 
 /** \brief CGA-Dispaly driver
@@ -21,81 +22,59 @@
  */
 class CGA_Screen {
   private:
+     
+    /**
+     * 
+     */
+    struct ScreenChar{
+      char c;
+      unsigned char attrib;
+    };
+    
+    
+    /**
+     * 
+     */
+    enum Ports{
+      indexPortNum=0x3d4, 
+      dataPortNum=0x3d5,
+      memoryBase=0xb8000
+    };
+    
+    /**
+     * 
+     */
+    enum Constants{
+      COLUMNS=80,
+      ROWS=25
+    };
+    
+    ScreenChar (*screen)[COLUMNS];
+    IO_Port index_port;
+    IO_Port data_port;
 
-  // some constants
+  protected:
+    /** 
+     * \~german
+     * \brief Attribut, welches genommen wird, wenn sonst nichts spezifiziert ist
+     * 
+     * Diese aktuellen Standardattribute werden von den meisten Funktionen dieser Klasse 
+     * beim Setzen der CGA-Attribute genutzt.
+     * 
+     * \~english
+     * \brief default attribute if no other is defined
+     */
+    unsigned char attribute;
 
-#define MEMORY_START 0xB8000
-#define CHARS_PER_ROW 80
-#define ROW_COUNT 25
-
-  // Cursor stuff
-
-#define INDEX_REG 0x3d4
-#define DATA_REG  0x3d5
-#define CURSOR_LOW 15
-#define CURSOR_HIGH 14
-
-  // Attribute stuff
-
-  /**
-   * @brief The CGA_AttrByte struct
-   *
-   * Maps the Attributes on one byte
-   */
-  struct CGA_AttrByte {
-    unsigned
-    fgColor: 4,
-    bgColor: 3,
-    blink: 1;
-  };
-
-  /**
-   * @brief The CGA_Attr union
-   */
-  union CGA_Attr {
-    char byte;
-    CGA_AttrByte set;
-  };
-
-  /**
-   * @brief The CGA_Char struct
-   *
-   * The two bytes representing a char in the screen buffer.
-   */
-  struct CGA_Char {
-    char character;
-    CGA_Attr attr;
-  };
-
-  /**
-   * @brief active attribute
-   */
-  CGA_Attr attr;
-
-  /**
-   * @brief compute the address to write to
-   * @param x Line
-   * @param y Position
-   * @return Address
-   */
-  inline int computeAddress(unsigned short x, unsigned short y)
-  {
-    return MEMORY_START + 2 * CHARS_PER_ROW * x + 2 * y;
-  }
-
- public:
+  public:
     
     /** 
      * \brief Constructor
-     *
-     * Sets up memory mapping of CGA driver, sets default attribute for output and cleares the screen.
      */
     CGA_Screen();
     
     /** 
      * \brief Destructor 
-     *
-     * Prints a warning that the os ended.
      */
     ~CGA_Screen();
     
@@ -104,33 +83,24 @@ class CGA_Screen {
      * @param x column number of new position 
      * @param y row number of new position
      */
-    void setpos(unsigned short y, unsigned short x);
+    void setpos(unsigned short x, unsigned short y);
     
     /** \brief get the cursor position
      *
      * @param x reference for column number of current position
      * @param y reference for row number of curent position
      */
-    void getpos(unsigned short& y, unsigned short& x) const;
+    void getpos(unsigned short& x, unsigned short& y) const;
     
     /** \brief print a character to a specific position
      *
      * @param x column number of display position
      * @param y row number of display position
-     * @param character character to be displayed
-     * @param attribute display attributs
+     * @param c character to be displayed
+     * @param attrib display attributs
      */
-    void show(unsigned short x, unsigned short y, char character, unsigned char attrib);
+    void show(unsigned short x, unsigned short y, char c, unsigned char attrib);
     
-    /**
-     * @brief print a character to a specific position
-     *
-     * @param x column number of display position
-     * @param y row number of display position
-     * @param c a CGA-Char represntation of the Character
-     */
-    void show(unsigned short x, unsigned short y, CGA_Char c);
-
     /** 
      * \~german
      * \brief gibt eine Zeichenkette an der aktuellen Position aus
@@ -152,24 +122,6 @@ class CGA_Screen {
      *    number auf characters in string
      */
     void print(const char* string, unsigned int n);
-
-    /**
-     * \~german
-     * \brief gibt eine Zeichenkette an der aktuellen Position aus
-     *
-     * Als Attribute werden die hinterlegten, aktuellen, Standardwerte verwendet.
-     *
-     * @param string
-     *    Zeichenkette, die ausgegeben werden soll
-     *
-     *
-     * \~english
-     * \brief print a string to the current position
-     *
-     * @param string
-     *    string of characters to be displayed
-     */
-    void print(const char* string);
     
     /** 
      * \~german

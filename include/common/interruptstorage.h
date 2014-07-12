@@ -13,7 +13,8 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "common/interrupthandler.h"
-#include "common/panic.h"
+#include <config.h>
+#include <common/panic.h>
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    CLASSES                      #
@@ -33,14 +34,36 @@
  * enables the system to define an appropriate handling routine for every hard
  * and software interrupt and execute it.
  **/
-class InterruptStorage {  
-  private:
-    // mapping for all interrupts
-    InterruptHandler** handlers;
+class InterruptStorage {
+  protected:
+    /** \~german Größte mögliche Interruptnummer
+      * \~english Biggest possible interrupt number
+     **/
+    static const int mMaxINum = MAX_INTERRUPT_NUMBER;
+    /** \~german Kleinste mögliche Interruptnummer
+      * \~english Smallest possible interrupt number
+     **/
+    static const int mMinINum = MIN_INTERRUPT_NUMBER;
 
-    // default handler
+    /** \~german Ein Panic-Handler für unerwartet Interrupts
+      * \~english A Panic-Handler for unexpected interrupts
+      **/
     Panic panic;
+    
+    /**\~german
+     * \brief Array von Zeigern auf Handler-Objekte
+     * 
+     * Für jeden möglichen Interrupt soll ein Element vorgehalten werden. Mögliche CPU exceptions können maskiert werden in dem MIN_INTERRUPT_NUMBER auf den kleinsten zu verwaltenden Interrupt gesetzt wird.
+     * 
+     * \~english
+     * \brief array of pointers to Gate objects
+     * 
+     * The buffer should contain gates for all possible interrupts. Possible CPU exceptions may be masked by setting the MIN_INTERRUPT_NUMBER to the number of the smallest interrupt to be handled.
+     **/
+     InterruptHandler* mHandler[mMaxINum-mMinINum];
 
+     static bool iNum2Index(int iNum, unsigned int& index);
+    
   public:
     /** 
      * \~german
@@ -57,7 +80,7 @@ class InterruptStorage {
     
     /** 
      * \~german
-     * \brief bindet ein \ref Handle -Objekt an einen speziellen Interrupt
+     * \brief bindet ein \ref InterruptHandler -Objekt an einen speziellen Interrupt
      * 
      * \param iNum 
      *   Zahl des Interrupts, welche mit dem Handler behandelt werden soll

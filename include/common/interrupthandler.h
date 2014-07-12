@@ -34,8 +34,6 @@ class InterruptHandler {
      * Da es verschiedene Interrupts gibt, die auch unterschiedliches Verhalten erfordern, 
      * müssen mehrere Unterklassen angelegt werden, je eine pro gewünschten Interrupt. Alle 
      * anderen Interrupts können auf eine einzige, weitere Unterklasse gelegt werden.
-     * 
-     * \param slot Die Nummer der Interrupts, der gerade behandelt wird.
      *
      * \~english
      * \brief interrupt handling method

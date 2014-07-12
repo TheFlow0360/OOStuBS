@@ -17,7 +17,7 @@
  * \~german
  * \brief Puffer für die Textausgabe
  * 
- * Die Klasse Stringbuffer implementiert einen Puffer, der die Zeichen für die Ausgabe
+ * Die Klasse Stringbuffer implementiert einen Puffer, der die Zeichen für die Aufgabe
  * auf dem Bildschirm oder einem anderen Ausgabegerät zwischenspeichert. 
  * Ist der Puffer voll oder wünscht der Programmierer explizit eine Ausgabe, so kann dies mittels 
  * der Methode flush() geschehen. Um die Unabhängigkeit vom Ausgabegerät zu erreichen, muss 
@@ -40,17 +40,19 @@
  * Stringbuffer every variable and method of Stringbuffer is declared 
  * 'protected'.
  */
-#define BUFFER_SIZE 80
-
 class Stringbuffer {
   protected:
-    char* buffer;
-    char* pos;
-
-    /** \brief Default constructor setting the buffer empty. */
+    /** \brief buffer containing the characters*/
+    char buffer[BUFFERSIZE];
+    
+    /** \brief buffer pointer saving the position of the next insertion */
+    short pos;
+    
+    /** \brief Default constructor setting the buffer empty.*/
     Stringbuffer();
     
-    /** \brief Default destructor of Stringbuffer */
+    /** \brief Default destructor of Stringbuffer
+     */
     virtual ~Stringbuffer();
     
     /** \brief insert a character into the buffer
@@ -59,7 +61,7 @@ class Stringbuffer {
      * after the insertion the buffer has to be emptied by calling the method 
      * flush().
      *
-     * \param c character to be inserted into the buffer
+     * @param c character to be inserted into the buffer
      */
     void put(char c);
     
@@ -72,6 +74,8 @@ class Stringbuffer {
      * method has to be implemented in a subclass of Stringbuffer.
      */
     virtual void flush() = 0;
+    
+  public:
     
 };
 

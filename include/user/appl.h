@@ -9,14 +9,14 @@
 #ifndef __application_include__
 #define __application_include__
 
-#include "thread/thread.h"
+#include "thread/customer.h"
 
 /** \brief Basis of OOStuBs-Applications
  *
  * This class defines the only application used by oo-StuBS. Every application
  * class is derived from this class.
  */        
-class Application : public Thread{
+class Application : public Customer{
   public:
     /** \brief Start the application
      *

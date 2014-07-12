@@ -10,34 +10,33 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "device/keyboard.h"
-#include "device/interruptmanager.h"
-#include "device/cgastr.h"
-#include "object/cpu.h"
-
-extern InterruptManager iManager;
-extern CGA_Stream kout;
+#include "object/imanager.h"
+#include "object/log.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
-#                    METHODS                      #
+#                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
+Keyboard::Keyboard() : sem(0){
 
-void Keyboard::plugin()
-{
-    iManager.assign( InterruptManager::keyboard, *this );
 }
 
+void Keyboard::plugin(){
+  iManager.assign(InterruptManager::keyboard, *this);
+}
 
-void Keyboard::trigger()
+void Keyboard::trigger(){
+  k = key_hit();
+  if(k.valid()){
+    if(k.scancode()==Key::scan::del && k.alt() && k.ctrl()){
+      reboot();
+    }else
+      sem.interrupt_signal();
+  }
+}
+
+Key Keyboard::getkey()
 {
-    Key k = key_hit();
-    if( !k.valid() )
-        return;
-
-    // Ctrl + Alt + Del
-    if (k.ctrl() && k.alt() && ((int)k.scancode() == 83))
-      Keyboard::reboot();
-
-    //kout.show( KEYBOARD_X, KEYBOARD_Y, k.ascii(), 10);    <-- this would solve artifact problems
-    kout<<k.ascii()<<endl;
-    iManager.ack( InterruptManager::keyboard );
+    log << "Thread stored in Waitingroom " << endl;
+    sem.wait();
+    return k;
 }

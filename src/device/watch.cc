@@ -19,12 +19,10 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 void Watch::windup(unsigned int ms){
-  interval(1000 * ms);
+  this->interval(ms);
   iManager.assign(InterruptManager::timer, *this);
 }
 
 void Watch::trigger(){
-  iManager.ack(InterruptManager::timer);
-  // acknowledge before preemption, because the function does not return
   scheduler.preempt();
 }

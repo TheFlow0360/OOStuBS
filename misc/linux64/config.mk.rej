@@ -1,0 +1,22 @@
+--- misc/linux64/config.mk	2014-06-02 08:21:36.156347655 +0200
++++ misc/linux64/config.mk	2014-06-14 17:58:43.491054727 +0200
+@@ -2,8 +2,8 @@
+ CXX=g++
+ ASM=gcc
+ LD=ld
+-#EMU=qemu-system-i386
+-EMU=qemu-kvm
++EMU=qemu-system-i386
++#EMU=qemu-kvm
+ EMUTARGET=${TARGET}
+ GDB=gdb
+ SED=sed
+@@ -16,6 +16,6 @@
+ ASMFLAGS=--32
+ 
+ OBJDUMPFLAGS=-Cxd
+-EMUFLAGS+=-no-kvm -net none -vga std -kernel
+-DEBUGFLAGS+=-s -S
++EMUFLAGS+=-no-kvm -net none -vga std -serial stdio
++EMUDEBUG+=-no-kvm -net none -vga std -serial file:"log" -S -s -daemonize
+ GDBFLAGS+=-x misc/gdb.script

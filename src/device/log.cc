@@ -9,9 +9,8 @@
 #include "device/log.h"
 
 void Log::flush () {
-  *pos = '\0';
-  this->print(buffer, pos - buffer);
-  pos = buffer;
+  print (buffer, pos);
+  pos = 0;
 }
 
 void Log::setAttributes(int fgColor, int bgColor, bool blink){

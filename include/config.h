@@ -30,4 +30,10 @@
 #define DEBUG_Y 0
 #define KEYBOARD_X 10
 #define KEYBOARD_Y 10
+
+#define CMD_X 0
+#define CMD_Y 18
+
+#define MAX_JOB_NUM 5
+
 #endif

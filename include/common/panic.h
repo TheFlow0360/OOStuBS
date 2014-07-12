@@ -33,8 +33,8 @@
  */
 class Panic  : public InterruptHandler {
   private:
-    int interruptNr = -1;
-
+    /** \brief Interrupt number of currently handled interrupt **/
+    int mINum;
   public:
     /**  
      * \~german
@@ -46,22 +46,14 @@ class Panic  : public InterruptHandler {
      * \~english
      * \brief handle unknown/unregistered interrupt 
      *
-     * For debug purposes the cpu will be halted if an unknown interrupt
-     * occurs. Additionally the number of the interrupt shall be printed.
+     * For debug purposes the cpu will be halted if an unknown interrupt occurs.
      **/
     virtual void trigger();
     
-    /**
-     * \brief Sets the currently handled interrupt
-     * \brief param iNum the currently handled interrupt's number
+    /**\brief Sets the currently handled interrupt
+      *\brief param iNum the currently handled interrupt's number
      **/
     void currentInterrupt(int iNum);
-
-    /**
-     * @brief gets the currently handled interrupt
-     * @return
-     */
-    int getCurrentInterrupt();
 };
 
 #endif

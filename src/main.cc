@@ -15,18 +15,19 @@
 #include "device/cgastr.h"
 #include "device/watch.h"
 #include "device/log.h"
-#include "thread/scheduler.h"
+#include "thread/organizer.h"
 #include "locking/interruptLock.h"
 #include "user/task1.h"
 #include "user/task2.h"
 #include "user/task3A.h"
 #include "user/task3B.h"
 #include "user/task4.h"
+#include "user/task5.h"
 
 /* MACROS */
 
 /// \~english define the task to execute
-#define USE_TASK 40
+#define USE_TASK 50
 
 /* GLOBAL OBJECTS */
 
@@ -37,7 +38,7 @@ InterruptLock lock;
 /** \brief Log for debug output over serial connection **/
 Log log;
 /** \brief Scheduler of all Threads **/
-Scheduler scheduler;
+Organizer scheduler;
 /** \brief Display output stream **/
 CGA_Stream kout;
 /** \brief Interrupt handling unit **/
@@ -61,6 +62,9 @@ Watch watch;
 #elif USE_TASK == 40
   /**\brief The fourth student task test application **/
   Task4 task4;
+#elif USE_TASK == 50
+  /**\brief The fifth student task test application **/
+  Task5 task5;
 #endif
 
 /* METHODS  */
@@ -71,13 +75,12 @@ Watch watch;
  *
  *  \return character of the choosen sub task
  **/
-char getSubTask(char minSubTask, char maxSubTask){
+bool getSubTask(char minSubTask, char maxSubTask){
   kout << "Please choose subtask [" << minSubTask << ", " << maxSubTask << "]" << endl;
   Key k;
   do{
       k=keyboard.key_hit();
   }while(!k.valid() || k.ascii()<minSubTask || k.ascii()>maxSubTask);
-  //kout << "hier "  << k.ascii();
   return k.ascii();
 }
 
@@ -90,13 +93,13 @@ extern "C" void kernel(uint32_t magic, const Multiboot_Info* info);
  *
  * This is the entry point of the operating system.  If this function returns
  * all interrupts will be disabled and the cpu will be halted.
- *
+ * 
  **/
 void kernel(uint32_t magic, const Multiboot_Info* info){
-
+  
   keyboard.plugin();
   watch.windup(10000);
-
+  
 #if USE_TASK == 10
   task1.setup(magic, info);
   scheduler.insert(task1);
@@ -105,15 +108,18 @@ void kernel(uint32_t magic, const Multiboot_Info* info){
   cpu.enable_int();
 #elif USE_TASK == 30
   if(getSubTask('A', 'B')=='A'){
-    task3a.action();
+    scheduler.insert(task3a);
+    cpu.enable_int();
   }
-  else{
-    task3b.action();
-  }
+  else
+    scheduler.insert(task3b);
 #elif USE_TASK == 40
   if(getSubTask('A', 'B')=='A')
     task4.enableCoop();
   scheduler.insert(task4);
+  cpu.enable_int();
+#elif USE_TASK == 50
+  scheduler.insert(task5);
   cpu.enable_int();
 #endif
 

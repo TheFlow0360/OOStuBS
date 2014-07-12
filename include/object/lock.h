@@ -6,8 +6,8 @@
  *                                                                                               * 
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef __keyboard_object_header__
-#define __keyboard_object_header__
+#ifndef __lock_object__header__
+#define __lock_object_header__
 
 #include "locking/interruptLock.h"
 extern InterruptLock lock;

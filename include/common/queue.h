@@ -26,6 +26,7 @@ class Queue{
 
   public:
     Queue();
+    virtual ~Queue(){}
     void push_back(Element& e);
     Element* pop_front();
     Element* peek_front() const;

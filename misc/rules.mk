@@ -86,7 +86,7 @@ cleanBuild:
 
 run: ${EMUTARGET}
 	@echo "(EMU  )"
-	${EMU} ${EMUFLAGS} $< 
+	${EMU} ${EMUFLAGS} -kernel $< 
 
 debug: ${TARGET}
 	@echo "(DEBUG)"

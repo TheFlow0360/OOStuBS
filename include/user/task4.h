@@ -1,3 +1,6 @@
+#ifndef __task4_header__
+#define __task4_header__
+
 #include "user/appl.h"
 
 /** \brief Fourth test application
@@ -6,7 +9,7 @@
  * based applications.
  **/
 class Task4 : public Application{
-	private:
+	protected:
 
 enum Constants{
 	rotCursorX=79,
@@ -105,3 +108,5 @@ class Counter : public Application
     /** \brief switch sub tasks to cooperative scheduling **/
     void enableCoop();
 };
+
+#endif

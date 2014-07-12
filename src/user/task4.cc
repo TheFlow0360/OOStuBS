@@ -58,7 +58,7 @@ Task4::~Task4(){
 
 void Task4::action(){
   kout.clear();
-  kout.setpos(31,1);
+	kout.setpos(31,1);
 	kout << "OOStuBs - Task 4" << endl << endl;
   log << "Inserting RotatingCursor in Scheduler" << endl;
   scheduler.insert(rotCursor);
@@ -66,8 +66,6 @@ void Task4::action(){
 	scheduler.insert(counter1);
   log << "Inserting Counter 2 in Scheduler" << endl;
 	scheduler.insert(counter2);
-
-  while(1) scheduler.yield();
 }
 
 void Task4::enableCoop(){

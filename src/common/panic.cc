@@ -10,24 +10,23 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include <common/panic.h>
-#include "object/cpu.h"
-#include "device/cgastr.h"
-extern CGA_Stream kout;
+
+#include <object/kout.h>
+#include <object/cpu.h>
+#include <config.h>
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
 void Panic::trigger(){
-  kout<<"Unhandled Interrupt: "<<interruptNr<<"!"<<endl;
+  kout.flush();
+  kout.setpos(DEBUG_Y, DEBUG_X);
+  kout << "PANIC(" << mINum << ")!" << endl;
   cpu.halt();
 }
 
 void Panic::currentInterrupt(int iNum){
-  interruptNr = iNum;
-}
-
-int Panic::getCurrentInterrupt()
-{
-  return interruptNr;
+  mINum=iNum;
 }

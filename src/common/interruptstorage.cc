@@ -10,43 +10,39 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "common/interruptstorage.h"
-#include "machine/mem.h"
-#include "config.h"
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 
-InterruptStorage::InterruptStorage() {
-  // allocate Memory for the mapping-array
-  handlers = (InterruptHandler**) Memory::alloc(MAX_INTERRUPT_NUMBER - MIN_INTERRUPT_NUMBER);
-  // initialize all interruptHandlers with Panic
-  for (int i = 0; i < MAX_INTERRUPT_NUMBER - MIN_INTERRUPT_NUMBER; i++) {
-    handlers[i] = &panic;
-  }
-}
-
-
-void InterruptStorage::assign(int iNum, InterruptHandler& handler) {
-  handlers[iNum - MIN_INTERRUPT_NUMBER] = &handler;
-}
-
-void InterruptStorage::handle(int iNum) {
-  if (iNum < MIN_INTERRUPT_NUMBER)
-    return;
-  int index = iNum - MIN_INTERRUPT_NUMBER;
-  panic.currentInterrupt(iNum);
-  handlers[index]->trigger();
-  panic.currentInterrupt(-1);
-}
-
-bool InterruptStorage::currentInterrupt(int &iNum)
-{
-  int tmp = panic.getCurrentInterrupt();
-  if (tmp >= 0) {
-    iNum = tmp;
+bool InterruptStorage::iNum2Index(int iNum, unsigned int& index){
+  int temp = iNum-mMinINum;
+  if(temp >= 0 && temp < mMaxINum-mMinINum){
+    index=temp;
     return true;
-  }
-  return false;
+  }else
+    return false;
+}
+
+InterruptStorage::InterruptStorage(){
+  for(unsigned int i=0;i<mMaxINum-mMinINum;i++)
+    mHandler[i] = &panic;
+}
+
+void InterruptStorage::assign(int iNum, InterruptHandler& handler){
+  unsigned int index;
+  if(iNum2Index(iNum, index))
+      mHandler[index] = &handler;
+}
+
+void InterruptStorage::handle(int iNum){
+  unsigned int index;
+
+  panic.currentInterrupt(iNum);
+
+  if(iNum2Index(iNum, index))
+    mHandler[index]->trigger();
+  else
+    panic.trigger();
 }

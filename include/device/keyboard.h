@@ -14,6 +14,8 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "machine/keyctrl.h"
 #include "common/interrupthandler.h"
+#include "machine/key.h"
+#include "locking/semaphore.h"
  
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    CLASSES                      #
@@ -31,7 +33,16 @@
  * for the keyboard.
  */
 class Keyboard : public Keyboard_Controller, public InterruptHandler  {
-  public:    
+  private:
+    /** \brief one elemental key buffer **/
+    Key k;
+
+    /** \brief key buffer protecting semaphore **/
+    Semaphore sem;
+  public:
+    /** \todo docu **/
+    Keyboard();
+
     /** 
      * \~german
      * \brief aktiviert den Interruptmechanismus für die Tastatur
@@ -53,18 +64,24 @@ class Keyboard : public Keyboard_Controller, public InterruptHandler  {
      * \brief einen auftretenden Tastaturinterrupt behandeln
      * 
      * Tritt ein Interrupt für die Tastatur auf, so soll diese Funktion aufgerufen werden.
-     *
-     * In Aufgabe 2 soll die Funktion das eingegeben Zeichen an der festen
-     * Position KEYBOARD_Y, KEYBOARD_X auf dem Bildschirm ausgegeben werden.
-     *
+     * 
+     * In Aufgabe 2 soll die Funktion das eingegeben Zeichen an einer festen Position, z.B.
+     * x=4, y=10, auf dem Bildschirm ausgeben.
+     * 
      * \~english
      * \brief handle keyboard interrupt
-     *
-     * On each keyboard interrupt emitting a valid key, the key shall be
-     * printed to the display at position KEYBOARD_Y, KEYBOARD_X
-     *
      */
     virtual void trigger ();
+
+    /**
+     * \~english
+     * \brief fetch a key from the keybord's key storage
+     *
+     * This method may block the calling thread until a key is available.
+     *
+     * \return A Key object holding the last pressed key
+     **/
+    Key getkey();
 };
 
 #endif

@@ -172,32 +172,12 @@ void Task1::testKeyboard(){
 }
 
 void Task1::action(){
-  kout.clear();
-/*
-  kout.print("\n\n\nDas ist ein Test.");
-  kout.setpos(5, 17);
-  kout.print("Writing somewhere else...");
-  kout.setpos(25, 3);
-  kout.print("Ich schreibe munter vor mich hin,\nlalala,\nlalala");
-  kout.setpos(5,10);
- // kout.print("Test");
- // kout.print(" direkt dahinter");
- // kout.setpos(0,0);
-*/
-  //kout << -12382;
-
-  //kout << "OOStuBs - Task 1" << endl;
-
+  kout.setpos(32, 1);
+  kout << "OOStuBs - Task 1" << endl;
+  
   testKout();
   
   parseAndPrint();
   
-  //testKeyboard();
-
-  kout << "Den Anfang macht die Aufgabe Task3A. Hier wird eine Methode Task3A::action() aufgerufen. Offenbar tritt dabei allerdings ein Fehler auf, denn das Programm wird mit der Ausgabe von 3 Parametern abgebrochen. Entwickeln Sie eine Strategie, wie Sie mit Hilfe des gdb die Programmzeile finden, in der der Fehler auftritt, welcher Fehlertyp generiert wird und welche Inhalte sich beim Auslösen der Exception auf dem Stack befinden."<< endl;
-  kout << "Die zweite Aufgabe Task3B führt die Berechnung einer Fibunachi-Folge durch runFib(). Machen Sie sich zunächst mit der Aufrufhierarchie der Methode vertraut. Mit dem Starten des Programms wird an signifikanten Punkten die Funktion printStack() aufgerufen. Diese gibt in 32-Bit-Worten die Stackstruktur zu je vier Einheiten pro Zeile in hexadezimaler Darstellung aus." << endl;
-  kout << "Es ist nun an Ihnen diesen Ausgaben entsprechende Bedeutungen zu geben. Achten Sie dabei insbesondere auf die verschiedenen Formen der Parameterübergaben zwischen den Funktionen. Insbesondere für die rekursiven Aufrufe ergibt sich ein deutliches Muster. Sie können gern den gdb hinzuziehen, um weitere Informationen zu erlangen." << endl << endl;
-
-  kout << "Text nach dem doppeltem Zeilenumbruch..." << endl;
-
+  testKeyboard(); 
 }

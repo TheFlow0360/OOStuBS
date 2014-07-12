@@ -9,8 +9,8 @@
 #ifndef __scheduler_object_header
 #define __scheduler_object_header
 
-#include "thread/scheduler.h"
+#include "thread/organizer.h"
 
-extern Scheduler scheduler;
+extern Organizer scheduler;
 
 #endif

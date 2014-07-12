@@ -24,7 +24,7 @@
 #                    FUNCTIONS                    #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 Task3B::Task3B() : Application(){
-  kout.setpos(1,31);
+  kout.setpos(31,1);
   kout << "OOStuBs - Task 3B" << endl << endl;
 }
 

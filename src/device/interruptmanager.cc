@@ -10,8 +10,9 @@
 #                    INCLUDES                     #
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include <device/interruptmanager.h>
+#include <object/imanager.h>
 
 void InterruptManager::assign(int iNum, InterruptHandler& handler){
   InterruptStorage::assign(iNum, handler);
-  allow((Interrupts)iNum);
+  allow((PIC::Interrupts)iNum);
 }
