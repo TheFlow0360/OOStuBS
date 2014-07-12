@@ -3,6 +3,7 @@
 #include "object/keyboard.h"
 #include "object/kout.h"
 #include "object/lock.h"
+#include "object/log.h"
 #include "locking/scopedLock.h"
 
 Task5::Task5(){
@@ -27,7 +28,6 @@ void Task5::action(){
     lock.unlock();
     while(!cmdLine.finished()){
       Key k = keyboard.getkey();
-      
       ScopedLock scopedLock(lock);
       if(k.scancode() == Key::scan::del){
         kout.setpos(x-1,y);
@@ -38,6 +38,7 @@ void Task5::action(){
       }
       kout.setpos(x,y);
       kout << k.ascii();
+      log << k.ascii() << endl;
       kout.flush();
       kout.getpos(x,y);
       cmdLine.feed(k.ascii());

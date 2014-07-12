@@ -29,7 +29,7 @@ void Keyboard::trigger(){
   if(k.valid()){
     if(k.scancode()==Key::scan::del && k.alt() && k.ctrl()){
       reboot();
-    }else
+    } else
       sem.interrupt_signal();
   }
 }

@@ -12,8 +12,7 @@ void Semaphore::p(){
   log << "Semaphore is going to wait" << endl;
   if (value <= 0)
     scheduler.block(*this);
-  else
-    value--;
+  value--;
 }
 
 void Semaphore::v(){
