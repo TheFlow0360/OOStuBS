@@ -3,7 +3,7 @@ TARGET=oostubs
 
 # one of linux, linux64
 # the platforms osxcross and windows are also possible but are not supported
-PLATFORM=linux64
+PLATFORM=linux
 
 CFLAGS=-Wall -O0 -g -Wpedantic
 CXXFLAGS=-std=c++11

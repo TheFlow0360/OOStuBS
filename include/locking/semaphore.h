@@ -30,7 +30,7 @@ class Semaphore : public Waitingroom
 {
   private:
     /** \brief Current value of semaphore **/
-    unsigned int value;
+    int value;
 	public:
     /** \brief Default Constructor
      *
@@ -46,11 +46,13 @@ class Semaphore : public Waitingroom
     /** \brief Increase value or wake up blocked thread **/
 		void v();
     /** \brief Decrease value or block calling thread **/
-		void wait(){p();}
+    inline void wait(){p();}
     /** \brief Increase value or wake up blocked thread **/
-		void signal(){v();}
+    inline void signal(){v();}
     /** \brief Increase value or wake up blocked thread from interrupt context**/
     void interrupt_signal();
+
+    friend class Organizer;
 };
 
 #endif

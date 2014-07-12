@@ -50,9 +50,10 @@ void Scheduler::insert(Thread& that){
 void Scheduler::next()
 {
   Thread* next = static_cast<Thread*>(threads.pop_front());
-  if(!next)
-    log << "Thread " << &idle << " starting (idle Thread)" << endl;
+  if(!next) {
+    //log << "Thread " << &idle << " starting (idle Thread)" << endl;
     next=&idle;
+  }
   dispatch(*next);
 }
 
@@ -64,6 +65,7 @@ void Scheduler::exit(){
 
 bool Scheduler::kill(Thread& that){
   if(&that==active()){
+    threads.remove(that);
     next();
     return true;
   }
