@@ -47,6 +47,7 @@ void Task4::Counter::action(){
 }
 
 Task4::Task4() : rotCursor(rotCursorX, rotCursorY),
+                 rotCursor2(0,0),
 				         counter1(counter1X, counter1Y),
 				         counter2(counter2X, counter2Y){
   log << "Task4 created" << endl;
@@ -62,6 +63,7 @@ void Task4::action(){
 	kout << "OOStuBs - Task 4" << endl << endl;
   log << "Inserting RotatingCursor in Scheduler" << endl;
   scheduler.insert(rotCursor);
+  scheduler.insert(rotCursor2);
   log << "Inserting Counter 1 in Scheduler" << endl;
 	scheduler.insert(counter1);
   log << "Inserting Counter 2 in Scheduler" << endl;
@@ -71,6 +73,7 @@ void Task4::action(){
 void Task4::enableCoop(){
   log << "Switching sub tasks to cooperative scheduling" << endl;
   rotCursor.enableCoop();
+  rotCursor2.enableCoop();
   counter1.enableCoop();
   counter2.enableCoop();
 }

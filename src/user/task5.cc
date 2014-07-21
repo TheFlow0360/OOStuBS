@@ -11,6 +11,7 @@ Task5::Task5(){
 
 void Task5::action(){
   jobs.registerJob(counter1, "Counter-1");
+  jobs.registerJob(rotCursor2, "Rotating-Cursor-2");
   jobs.registerJob(counter2, "Counter-2");
   jobs.registerJob(rotCursor, "Rotating-Cursor");
 

@@ -81,6 +81,7 @@ class Counter : public Application
 
 		/** \brief Application for a rotating symbol **/
 		RotCursor rotCursor;
+    RotCursor rotCursor2;
 		/** \brief Application for a printed out counter **/
 		Counter counter1;
 		/** \brief Application for a printed out counter **/
