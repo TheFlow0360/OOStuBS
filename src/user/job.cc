@@ -30,8 +30,8 @@ bool Job::start(){
 
 bool Job::stop(){
   if(mApp && mState==running){
-    scheduler.kill(*mApp);
     mState=stopped;
+    scheduler.kill(*mApp);
     return true;
   }
   return false;

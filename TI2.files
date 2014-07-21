@@ -51,6 +51,7 @@ include/user/task3A.h
 include/user/task3B.h
 include/user/task4.h
 include/user/task5.h
+include/user/task6.h
 include/config.h
 src/boot/boot.S
 src/boot/compat.S
@@ -93,4 +94,5 @@ src/user/task3A.cc
 src/user/task3B.cc
 src/user/task4.cc
 src/user/task5.cc
+src/user/task6.cc
 src/main.cc

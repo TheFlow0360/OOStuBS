@@ -23,11 +23,12 @@
 #include "user/task3B.h"
 #include "user/task4.h"
 #include "user/task5.h"
+#include "user/task6.h"
 
 /* MACROS */
 
 /// \~english define the task to execute
-#define USE_TASK 50
+#define USE_TASK 60
 
 /* GLOBAL OBJECTS */
 
@@ -65,6 +66,9 @@ Watch watch;
 #elif USE_TASK == 50
   /**\brief The fifth student task test application **/
   Task5 task5;
+#elif USE_TASK == 60
+  /**\brief The fifth student task test application **/
+  Task6 task6;
 #endif
 
 /* METHODS  */
@@ -121,7 +125,10 @@ void kernel(uint32_t magic, const Multiboot_Info* info){
 #elif USE_TASK == 50
   scheduler.insert(task5);
   cpu.enable_int();
+#elif USE_TASK == 60
+  scheduler.insert(task6);
+  cpu.enable_int();
 #endif
-
+  
   scheduler.start();
 }

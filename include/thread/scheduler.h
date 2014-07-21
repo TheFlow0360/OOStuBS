@@ -39,6 +39,7 @@ private:
     virtual void action();
   } idle;
 
+
 public:
   /** \brief Default Constructor clearing started flag **/
   Scheduler();

@@ -8,10 +8,9 @@ class JobManager{
   private:
     Job mJobStorage[MAX_JOB_NUM];
     unsigned int mNum;
-    
+    int find(const char* name) const;
   public:
     JobManager();
-    int find(const char* name) const;
     bool registerJob(Application& app, const char* name);
     bool unregisterJob(const char* name);
     bool start(const char* name);

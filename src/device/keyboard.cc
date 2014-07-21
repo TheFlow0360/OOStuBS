@@ -11,7 +11,6 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * */
 #include "device/keyboard.h"
 #include "object/imanager.h"
-#include "object/log.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *\
 #                    METHODS                      # 
@@ -29,14 +28,13 @@ void Keyboard::trigger(){
   if(k.valid()){
     if(k.scancode()==Key::scan::del && k.alt() && k.ctrl()){
       reboot();
-    } else
+    }else
       sem.interrupt_signal();
   }
 }
 
 Key Keyboard::getkey()
 {
-    log << "Thread stored in Waitingroom " << endl;
     sem.wait();
     return k;
 }
